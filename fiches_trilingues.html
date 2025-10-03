@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Formation Mercure V5 - Fiches Pédagogiques Complètes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #2980b9;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lang-selector {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .lang-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-button.active-lang,
+        .lang-button:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            font-size: 36px;
+            margin-right: 15px;
+            color: white;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .header-content {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .header-content h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .tab i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .tab:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .tab:hover i {
+            color: white;
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab.active i {
+            color: white;
+        }
+        
+        .content {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+        }
+        
+        h4 {
+            color: var(--accent);
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .card {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .tip, .info, .warning, .good-practice {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tip {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .warning {
+            background-color: #fdeaea;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .info {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .good-practice {
+            background-color: #eaf7ea;
+            border-left: 4px solid var(--success);
+        }
+
+        .tip i, .info i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        .warning i {
+            color: var(--danger);
+            margin-right: 10px;
+        }
+
+        .good-practice i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .icon-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .icon-list i {
+            margin-right: 10px;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .three-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .menu-detail {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-detail h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .visual-element {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .practice-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .practice-card h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .two-columns, .three-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-direction: column;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+                <div class="lang-selector">
+                <button class="lang-button" id="btn-fr" onclick="setLanguage('fr')">🇫🇷 Français</button>
+                <button class="lang-button" id="btn-sq" onclick="setLanguage('sq')">🇦🇱 Shqip</button>
+                <button class="lang-button" id="btn-en" onclick="setLanguage('en')">🇬🇧 English</button>
+            </div>
+            
+            <div class="logo">
+                <i class="fas fa-diagram-project logo-icon"></i>
+                <div class="logo-text">Mercure V5</div>
+            </div>
+            <div class="header-content">
+                <h1 id="header-h1">Formation Mercure – Guide d'utilisateur simple</h1>
+                <p id="header-p">Logiciel de traitement de données dédié aux investigations judiciaires</p>
+            </div>
+        </header>
+        <div id="interface-fr" style="display: none;">
+            <div class="tabs-container" id="tabs-fr">
+                <div class="tab active" data-content-id="intro-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-home"></i> Introduction
+                </div>
+                <div class="tab" data-content-id="fiche1-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-desktop"></i> Fiche 1 - Environnement
+                </div>
+                <div class="tab" data-content-id="fiche2-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-database"></i> Fiche 2 - Identifier
+                </div>
+                <div class="tab" data-content-id="fiche3-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-file-import"></i> Fiche 3 - Intégrer
+                </div>
+                <div class="tab" data-content-id="fiche4-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-chart-bar"></i> Fiche 4 - Analyser
+                </div>
+                <div class="tab" data-content-id="fiche5-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-file-export"></i> Fiche 5 - Restituer
+                </div>
+                <div class="tab" data-content-id="pratiques-fr" onclick="showTab(this, 'fr')">
+                    <i class="fas fa-tasks"></i> Pratiques
+                </div>
+            </div>
+            
+            <div class="content active" id="intro-fr">
+                <h2>Introduction</h2>
+                <p>Mercure est un logiciel de traitement de données dédié aux investigations judiciaires. Il centralise, nettoie et croise des données issues de plusieurs sources afin d'accélérer et fiabiliser l'analyse.</p>
+                
+                <h3>Sources principales :</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-mobile-alt"></i> <strong>Téléphonie</strong> : trafics sur relais (bornage), fadettes (facturation détaillée), logs d'IMSI catchers, extractions d'appareils (téléphones, disques durs).</li>
+                    <li><i class="fas fa-file-alt"></i> <strong>Extractions</strong> : donnent accès à agenda, listes d'identités, contenus de chats/messages, points géolocalisés, activités, recherches web…</li>
+                    <li><i class="fas fa-map-marker-alt"></i> <strong>Autres sources</strong> : balises GPS, LAPI (Lecteurs Automatiques de Plaques d'Immatriculation), opérations financières, logs IP.</li>
+                </ul>
+                
+                <h3>Pourquoi Mercure ?</h3>
+                <div class="card">
+                    <p>Le volume et l'hétérogénéité des données, ainsi que les traitements préalables à leur analyse, rendent indispensable un outil dédié : normalisation, recherche avancée, visualisations, corrélations et restitution.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-project-diagram fa-2x"></i>
+                    <span style="margin-left: 15px;">Centralisation des données multi-sources</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche1-fr">
+                <h2>Fiche 1 - Environnement &amp; Organisation de Mercure</h2>
+                
+                <h3>1.1 Fenêtre principale &amp; zones</h3>
+                <p>La fenêtre principale se compose de :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-arrow-up"></i> <strong>Haut</strong> : barre des menus principaux (agissent sur toute la référence).</li>
+                    <li><i class="fas fa-align-center"></i> <strong>Centre</strong> : zone de travail (vos espaces de travail ouverts).</li>
+                    <li><i class="fas fa-arrow-down"></i> <strong>Bas</strong> : barre d'état avec recherche texte et centre de notifications (icône drapeau).</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Barre d'état – Recherche instantanée</strong> : tapez un terme → les éléments sont surlignés en vert → Enter pour lister les résultats et naviguez avec ← / →.</p>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Centre de notifications</strong> : Le drapeau devient rouge quand il y a des notifications non lues (liste de surveillance, partage d'espace de travail). Double-clic pour ouvrir (marque "lu"). Nettoyage auto géré par Mercure.</p>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Progression des imports en masse</strong> : Une icône spécifique s'affiche en bas à droite lorsqu'un import en masse est en cours.</p>
+                </div>
+                
+                <h3>1.2 Menus et structure</h3>
+                <p>Mercure s'organise autour de trois types de menus complémentaires :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-bars"></i> <strong>Menu non contextuel (barre supérieure)</strong> : Gestion globale (base/référence, relais, imports génériques, préférences, administration…).</li>
+                    <li><i class="fas fa-mouse-pointer"></i> <strong>Menu contextuel (clic droit)</strong> : Actions selon l'élément sélectionné (identités, numéros, IMEI, IMSI, relais, événements, LAPI, financier, IP…).</li>
+                    <li><i class="fas fa-window-restore"></i> <strong>Menu pop-up (tableau/graphe/carte)</strong> : Raccourcis d'analyse : copier, afficher sur la carte, générer un rapport, exporter, etc.</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Utilisez **Ctrl + clic** ou le **clic secondaire** pour accéder rapidement aux menus contextuels selon la zone → gain de temps.</p>
+                </div>
+                
+                <h3>1.3 Détail des menus principaux</h3>
+                
+                <div class="two-columns">
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-file"></i> Fichier</h4>
+                        <p>Quitter, Préférences, créer espace/catégorie, détruire requêtes/procédures, habilitations (selon droits), changer mot de passe, rapports d'imports en masse, administrer utilisateurs (selon droits), voir clients connectés (serveur), mettre à jour formats d'import, restaurer une archive Mercure.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-id-card"></i> Identités</h4>
+                        <p>Créer manuellement (à rattacher à une liste d'identités existantes), rechercher identités et identifiants sur toute la base.</p>
+                    </div>
+
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-phone"></i> Téléphonie</h4>
+                        <p>IMEI : recherche sur base, recherche sur listes sélectionnées, importer base TAC IMEI, interroger base TAC.</p>
+                        <p>IMSI : recherche sur base ou sur listes sélectionnées.</p>
+                        <p>Numéros : recherche par valeur sur base ou sur listes sélectionnées.</p>
+                        <p>Relais : créer, importer, importer géolocalisations, rechercher, administrer (selon droits).</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-car"></i> LAPI</h4>
+                        <p>Immat. : rechercher immatriculations par valeur.</p>
+                        <p>Enregistrements LAPI : créer (rattacher à une requête), importer géolocalisations.</p>
+                    </div>
+
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-money-bill-wave"></i> Financier</h4>
+                        <p>Comptes : recherche par valeur ou sur listes sélectionnées.</p>
+                        <p>Opérations : importer géolocalisations, rechercher par valeur.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-network-wired"></i> IP</h4>
+                        <p>Enregistrements IP : rechercher des enregistrements.</p>
+                        <p>Adresses IP : rechercher par valeur.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-tags"></i> Multi-entités &amp; Tags</h4>
+                        <p>Recherche texte intégral, recherche par étendue calendaire.</p>
+                        <p>Rechercher tags et entités taguées.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-search"></i> Requêtes</h4>
+                        <p>Historique des 100 dernières, relancer, favoris.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-question-circle"></i> Aide</h4>
+                        <p>Manuel utilisateur, nouveautés version, À Propos, Nomenclature MCC/MNC (codification ITU E.212 pour pays/opérateurs des IMSI &amp; certains identifiants de relais).</p>
+                    </div>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Nomenclature MCC/MNC</strong> : Utile pour interpréter les IMSI, CGI/eCGI et rattacher un identifiant à un pays/opérateur.</p>
+                </div>
+                
+                <h3>1.4 Organisation &amp; hiérarchisation des données</h3>
+                <p>Structure hiérarchique : Base de données (serveur) → Espace de travail → Procédures → Dossiers/Sous-dossiers → Requêtes/Sous-requêtes.</p>
+                <p>Jusqu'à 5 niveaux d'organisation et 5 niveaux de requêtes.</p>
+                
+                <div class="good-practice">
+                    <p><i class="fas fa-check-circle"></i> <strong>Bonnes pratiques</strong></p>
+                    <p>Nommage explicite et unique (facilite recherche, partage et exports).</p>
+                    <p>Organisez par affaire et/ou par type de données (Bornage, Fadettes, Extractions, Événements…).</p>
+                    <p>Utilisez les vues sauvegardées sur les fiches de résultats.</p>
+                </div>
+                
+                <h3>1.5 Préférences (Fichier → Préférences)</h3>
+                
+                <div class="two-columns">
+                    <div>
+                        <h4>Général</h4>
+                        <ul>
+                            <li>Langue &amp; fuseau horaire</li>
+                            <li>Supprimer certains messages (import, licence, divers)</li>
+                        </ul>
+                        
+                        <h4>Affichage</h4>
+                        <ul>
+                            <li>Formats (date, durée, lat/long)</li>
+                            <li>Tableaux (options d'affichage des résultats)</li>
+                            <li>Thème</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>Import de données</h4>
+                        <ul>
+                            <li>Définir les répertoires par défaut (imports &amp; archivage)</li>
+                        </ul>
+                        
+                        <h4>Export</h4>
+                        <ul>
+                            <li>Dossiers par défaut pour Excel/LibreOffice (.xlsx), JSON, CSV, Rapports (.pdf/.docx/.odt), Analyst's Notebook (.anx), KML, Shapefile (ESRI), Graphes (.svg/.graphml)</li>
+                        </ul>
+                        
+                        <h4>Cartographie</h4>
+                        <ul>
+                            <li>Serveurs de tuiles (jusqu'à 3), cache, géocodage</li>
+                        </ul>
+                        
+                        <h4>Connexions réseaux</h4>
+                        <ul>
+                            <li>Proxy (IP/port, auth si nécessaire). Bouton Tester la connexion.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Sauvegardez des profils de préférences selon le poste/l'usage (analyse téléphonique, cartographie avancée, restitution…).</p>
+                </div>
+            </div>
+            
+            <div class="content" id="fiche2-fr">
+                <h2>Fiche 2 - Identifier les données</h2>
+                
+                <h3>2.1 Typologie des données intégrables</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-user"></i> <strong>Identités</strong> : personnes (physiques/morales), numéros, IMSI, IMEI, immatriculations, coordonnées bancaires.</li>
+                    <li><i class="fas fa-phone"></i> <strong>Communications</strong> : fadettes, bornage, profils, chats.</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Événements</strong> : fils d'enquête, tags (suivi de véhicules).</li>
+                    <li><i class="fas fa-archive"></i> <strong>Enregistrements</strong> : LAPI (logs/trajectoire immatriculation), extractions (boîtier, SIM, cloud, ordinateur, MBOX, réseaux sociaux).</li>
+                    <li><i class="fas fa-broadcast-tower"></i> <strong>Relais</strong> : identifiants &amp; géolocalisations (niveau de la base).</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Documentez l'origine (opérateur, période, format) dans la description de la procédure.</p>
+                </div>
+                
+                <h3>2.2 Identités &amp; identifications de relais</h3>
+                <p>Relais : sont enregistrés/administrés au niveau serveur (menu non contextuel).</p>
+                <p>Identités : rattachées aux procédures et/ou aux extractions générées.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Attention aux identités fournies par les opérateurs : erreurs possibles → vérification/croisement requis.</p>
+                </div>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Toujours valider et croiser les identités avant exploitation.</p>
+                </div>
+                
+                <h3>2.3 Événements</h3>
+                <p>Sources : fils d'événements datés et géolocalisés.</p>
+                <p>Objets : tout document décrivant des événements (datés + localisés).</p>
+                <p>Lien : corrélations entre faits, fadettes/entités et lieux.</p>
+                
+                <h3>2.4 Immatriculations, LAPI &amp; financier</h3>
+                <p>Sources : identités (immatriculations), suivi d'immatriculations, logs LAPI (police/douane), comptes bancaires &amp; opérations financières.</p>
+                <p>Objets : certificat véhicule, PV, vidéos autoroute, LAPI multi-sources, comptes bancaires, opérations datées &amp; localisées.</p>
+                <p>Lien : véhicules ↔ utilisateurs ↔ lieux ; titulaires compte ↔ lieux (présence/usages).</p>
+                
+                <h3>2.5 Adresses IP</h3>
+                <p>Sources : enregistrements IP (fournisseurs d'accès, plateformes/services), journaux d'applications, réquisitions opérateurs.</p>
+                <p>Objets : adresses IP (publiques/privées), heures, éventuellement ports/protocoles selon les sources.</p>
+                <p>Lien : rattachement d'une activité réseau à une période et à un abonné/service ; support pour les corrélations téléphonie ↔ internet.</p>
+                
+                <div class="visual-element">
+                    <i class="fas fa-link fa-2x"></i>
+                    <span style="margin-left: 15px;">Interconnexion des données multi-sources</span>
+                </div>
+            </div>
+            
+            <div class="content" id="fiche3-fr">
+                <h2>Fiche 3 - Intégrer les données</h2>
+                
+                <h3>3.1 Vue d'ensemble</h3>
+                <div class="two-columns">
+                    <div>
+                        <h4>Création manuelle</h4>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-user-plus"></i> Identités</li>
+                            <li><i class="fas fa-map-marked-alt"></i> Adresses</li>
+                            <li><i class="fas fa-calendar-plus"></i> Événements</li>
+                            <li><i class="fas fa-list"></i> Listes (sélection, IMSI, IMEI, relais, immatriculations, exclusions)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Imports automatiques</h4>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-phone"></i> Communications (fadettes/bornage)</li>
+                            <li><i class="fas fa-history"></i> Événements (fils/tags)</li>
+                            <li><i class="fas fa-car"></i> LAPI (logs/suivi)</li>
+                            <li><i class="fas fa-archive"></i> Autres enregistrements</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p>Relais &amp; géolocalisations de relais : via le menu non contextuel.</p>
+                
+                <h3>3.2 Processus d'import</h3>
+                <p>Deux cas de figure :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-check-circle"></i> Format reconnu → import automatique</li>
+                    <li><i class="fas fa-cog"></i> Format non reconnu → définir un mapping (colonnes, valeurs)</li>
+                </ul>
+                
+                <p>Étapes typiques : fichier/emplacement → opérateur → type de réquisition → n° abonné → validation → suite.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Observez les formats de date, les en-têtes, les numéros ambigus, la direction/rôle (abonné vs correspondant).</p>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Sauvegardez des gabarits de mapping pour standardiser vos imports récurrents.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-file-import fa-2x"></i>
+                    <span style="margin-left: 15px;">Processus d'import de données</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche4-fr">
+                <h2>Visualiser &amp; Fiche 4 - Analyser les données</h2>
+                
+                <h3>4.1 Modes de visualisation</h3>
+                <div class="three-columns">
+                    <div>
+                        <h4><i class="fas fa-table"></i> Tableaux</h4>
+                        <p>Tri, filtres, colonnes affichées, vues sauvegardées (y compris par défaut).</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-chart-line"></i> Graphes</h4>
+                        <p>Communications, entourage d'abonné/extraction, IMEI/IMSI associés.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-map"></i> Cartographie</h4>
+                        <p>Localisations, heat map, agrégations, recherche à proximité, points de rencontre/éloignement.</p>
+                    </div>
+                </div>
+                
+                <p>Spécifiques : profil de communication, chats, timeline.</p>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Combinez tableau + graphe + carte pour révéler les contacts clés, les lieux récurrents et les séquences temporelles.</p>
+                </div>
+                
+                <h3>4.2 Organisation de l'espace de travail</h3>
+                <p>Dossiers/Sous-dossiers : par affaire ou par type (Bornage, Fadettes, Extractions, Événements).</p>
+                <p>Fiches de résultats : trier/filtrer, sauvegarder les vues.</p>
+                <p>Nommage homogène : essentiel pour les exports &amp; la collaboration.</p>
+                
+                <h3>4.3 Analyse des données</h3>
+                
+                <h4>Recherches</h4>
+                <p>Par valeur, texte, rôle/direction, étendue calendaire.</p>
+                <p>Sur identités, numéros, IMEI, IMSI, relais, événements, LAPI, IP.</p>
+                <p>Affichages : liste, graphe, carte (avec géocodage).</p>
+                
+                <h4>Corrélations</h4>
+                <p>Commune, avancée, référentielle, similaire, de liste.</p>
+                
+                <h4>Requêtes métier</h4>
+                <p>Proximité : éléments proches d'un point donné (rayon configurable).</p>
+                <p>Point de rencontre/éloignement : comparer des requêtes ou des ensembles.</p>
+                <p>Fréquences &amp; flottes : comportements répétés, terminaux communs.</p>
+                
+                <h3>4.4 Détails des requêtes avancées</h3>
+                
+                <div class="menu-detail">
+                    <h4>Rencontre/Éloignement – simple</h4>
+                    <p>Sélection de requêtes → résultat = meilleur point.</p>
+                </div>
+                
+                <div class="menu-detail">
+                    <h4>Rencontre/Éloignement – avancée</h4>
+                    <p>Ensembles, contraintes temporelles et distance, rôle abonné/correspondant.</p>
+                </div>
+                
+                <div class="menu-detail">
+                    <h4>Corrélation "commun" vs "avancée"</h4>
+                    <p>Commun = requêtes entre elles (sans rôle).</p>
+                    <p>Avancée = ensembles complets (avec rôle).</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                    <span style="margin-left: 15px;">Analyse avancée des données</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche5-fr">
+                <h2>Fiche 5 - Restituer &amp; Clôturer</h2>
+                
+                <h3>5.1 Restitution</h3>
+                <div class="two-columns">
+                    <div>
+                        <h4><i class="fas fa-file-pdf"></i> Rapports</h4>
+                        <p>Analyse d'extraction/fadette, éléments saillants, chronologie, cartes/graphes.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-file-export"></i> Exports</h4>
+                        <p>Excel/CSV, Analyst's Notebook, KML, Shapefile, SVG/GraphML, images.</p>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Préparez des modèles de rapports réutilisables selon le cas d'usage (victime, suspect, LAPI…).</p>
+                </div>
+                
+                <h3>5.2 Pièges &amp; solutions</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-copy"></i> Duplications techniques → nettoyage/suppression</li>
+                    <li><i class="fas fa-search"></i> Interprétations hâtives → vérifier rôles/direction, périodes, sources</li>
+                    <li><i class="fas fa-phone"></i> Numéros ambigus → préciser le pays, l'opérateur, le format</li>
+                </ul>
+                
+                <h3>5.3 Clôturer une procédure</h3>
+                <p>Vérifier les réquisitions manquantes et la complétude.</p>
+                <p>Archiver la procédure (versions si nécessaire).</p>
+                <p>Sauvegarder les identifiants / immatriculations / LAPI dans des listes.</p>
+                <p>Partage / transfert si nécessaire.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Contrôler les autorisations avant distribution des archives.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-file-contract fa-2x"></i>
+                    <span style="margin-left: 15px;">Restitution et clôture de procédure</span>
+                </div>
+            </div>
+
+            <div class="content" id="pratiques-fr">
+                <h2>Annexes – Fiches pratiques</h2>
+                
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <h4>Pratique 1 – Facturation détaillée (victime)</h4>
+                        <ul>
+                            <li>Entourage : tableaux des correspondants, fréquences, graphe.</li>
+                            <li>Habitudes géographiques : relais, agrégations par zone, heat map.</li>
+                            <li>Moment des faits : communications par intervalle, carte, graphe ciblé.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Pratique 2 – Facturation détaillée (suspect)</h4>
+                        <ul>
+                            <li>Entourage &amp; fréquences.</li>
+                            <li>Habitudes géographiques : zones, heat map, corrélation référentielle.</li>
+                            <li>Moyens utilisés : 1 MSISDN ⇒ N IMEI, 1 IMEI ⇒ N MSISDN / N IMSI, 1 IMSI ⇒ N IMEI</li>
+                            <li>Contexte : timeline, carte, communications filtrées.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Pratique 3 – Deux puces, une personne ?</h4>
+                        <ul>
+                            <li>Co-présence : Rencontre/Éloignement avancé (distance &lt; X m, contrainte temporelle).</li>
+                            <li>Séparation : même période, distance &gt; X m.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Pratique 4 – Sauvegarder les résultats d'analyse</h4>
+                        <ul>
+                            <li>Créer le dossier "Résultats des analyses".</li>
+                            <li>Sauvegarder sous forme de listes (identifiants) ou de requêtes (lignes).</li>
+                            <li>Nom explicite + date.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Pratique 5 – Véhicules d'intérêt (LAPI)</h4>
+                        <ul>
+                            <li>Corrélation des immatriculations communes entre deux logs LAPI.</li>
+                            <li>Points de passage : suivi d'immatriculations + logs LAPI.</li>
+                            <li>Chronologie : timeline → ordre de passage, organisation du groupe.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Pratique 6 – Centres d'intérêts géographiques</h4>
+                        <ul>
+                            <li>Sélections multiples (procédures ou espaces).</li>
+                            <li>Projections cartographiques, agrégations, heat maps.</li>
+                            <li>Exploiter pour surveillances ciblées, recherche caméras/LAPI, témoignages.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-clipboard-list fa-2x"></i>
+                    <span style="margin-left: 15px;">Fiches pratiques d'analyse</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="interface-sq" style="display: none;">
+             <div class="tabs-container" id="tabs-sq">
+                <div class="tab active" data-content-id="intro-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-home"></i> Hyrje
+                </div>
+                <div class="tab" data-content-id="fiche1-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-desktop"></i> Fleta 1 - Mjedisi
+                </div>
+                <div class="tab" data-content-id="fiche2-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-database"></i> Fleta 2 - Identifikimi
+                </div>
+                <div class="tab" data-content-id="fiche3-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-file-import"></i> Fleta 3 - Integrimi
+                </div>
+                <div class="tab" data-content-id="fiche4-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-chart-bar"></i> Fleta 4 - Analiza
+                </div>
+                <div class="tab" data-content-id="fiche5-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-file-export"></i> Fleta 5 - Kthimi/Prezantimi
+                </div>
+                <div class="tab" data-content-id="pratiques-sq" onclick="showTab(this, 'sq')">
+                    <i class="fas fa-tasks"></i> Praktika
+                </div>
+            </div>
+            
+            <div class="content active" id="intro-sq">
+                <h2>Hyrje</h2>
+                <p>Mercure është një softuer për përpunimin e të dhënave i dedikuar hetimeve gjyqësore. Ai centralizon, pastron dhe kryqëzon të dhënat nga burime të shumta për të përshpejtuar dhe rritur besueshmërinë e analizës.</p>
+                
+                <h3>Burimet kryesore:</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-mobile-alt"></i> <strong>Telefonika</strong> : trafik në rele (bornage), fatura të detajuara (fadettes), log të kapësve të IMSI-ve (IMSI catchers), nxjerrje nga pajisjet (telefona, disqe të ngurtë).</li>
+                    <li><i class="fas fa-file-alt"></i> <strong>Nxjerrjet</strong> : japin akses në agjendë, lista identitetesh, përmbajtje bisedash/mesazhesh (chats/messages), pika të gjeolokalizuara, aktivitete, kërkime në ueb…</li>
+                    <li><i class="fas fa-map-marker-alt"></i> <strong>Burime të tjera</strong> : etiketa GPS, LAPI (Lexues Automatikë të Targave të Automjeteve), operacione financiare, log të IP-ve.</li>
+                </ul>
+                
+                <h3>Pse Mercure?</h3>
+                <div class="card">
+                    <p>Volumi dhe heterogjeniteti i të dhënave, si dhe përpunimet paraprake para analizës, e bëjnë të domosdoshëm një mjet të dedikuar : normalizimi, kërkimi i avancuar, vizualizimet, korrelacionet dhe kthimi/prezantimi.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-project-diagram fa-2x"></i>
+                    <span style="margin-left: 15px;">Centralizimi i të dhënave me shumë burime</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche1-sq">
+                <h2>Fleta 1 - Mjedisi &amp; Organizimi i Mercure</h2>
+                
+                <h3>1.1 Dritarja kryesore &amp; zonat</h3>
+                <p>Dritarja kryesore përfshin :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-arrow-up"></i> <strong>Lart</strong> : shiriti i menuve kryesore (veprojnë në të gjithë referencën).</li>
+                    <li><i class="fas fa-align-center"></i> <strong>Qendër</strong> : zona e punës (hapësirat tuaja të hapura të punës).</li>
+                    <li><i class="fas fa-arrow-down"></i> <strong>Poshtë</strong> : shiriti i statusit me kërkim teksti dhe qendrën e njoftimeve (ikona e flamurit).</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Shiriti i statusit – Kërkim i çastit</strong> : shkruani një term → elementet theksohen me të gjelbër → Enter për të listuar rezultatet dhe lundroni me ← / →.</p>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Qendra e njoftimeve</strong> : Flamuri bëhet i kuq kur ka njoftime të palexuara (lista mbikëqyrjeje, ndarje e hapësirës së punës). Klikoni dy herë për të hapur (shënon "lexuar"). Pastrimi automatik menaxhohet nga Mercure.</p>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Progresi i importimeve në masë</strong> : Një ikonë specifike shfaqet poshtë djathtas kur një import në masë është në progres.</p>
+                </div>
+                
+                <h3>1.2 Menutë dhe struktura</h3>
+                <p>Mercure organizohet rreth tre llojeve të menuve plotësuese :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-bars"></i> <strong>Menu jokontekstuale (shiriti i sipërm)</strong> : Menaxhimi global (bazë/referencë, rele, importe gjenerike, preferenca, administrim…).</li>
+                    <li><i class="fas fa-mouse-pointer"></i> <strong>Menu kontekstuale (klik i djathtë)</strong> : Veprime sipas elementit të zgjedhur (identitete, numra, IMEI, IMSI, rele, ngjarje, LAPI, financiare, IP…).</li>
+                    <li><i class="fas fa-window-restore"></i> <strong>Menu pop-up (tabela/grafikë/harta)</strong> : Shkurtore analize : kopjo, shfaq në hartë, gjenero raport, eksporto, etj.</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Përdorni **Ctrl + klik** ose **klikun sekondar** për të hyrë shpejt në menutë kontekstuale sipas zonës → kursim kohe.</p>
+                </div>
+                
+                <h3>1.3 Detajet e menuve kryesore</h3>
+                
+                <div class="two-columns">
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-file"></i> Skedar</h4>
+                        <p>Dil, Preferenca, krijo hapësirë/kategori, shkatërro kërkesat/procedurat, habilitimet (sipas të drejtave), ndrysho fjalëkalimin, raporte të importimeve në masë, administro përdoruesit (sipas të drejtave), shiko klientët e lidhur (server), përditëso formatet e importit, rikthe një arkivë Mercure.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-id-card"></i> Identitetet</h4>
+                        <p>Krijo manualisht (për t'u bashkëngjitur në një listë identitetesh ekzistuese), kërko identitete dhe identifikues në të gjithë bazën.</p>
+                    </div>
+
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-phone"></i> Telefonika</h4>
+                        <p>IMEI : kërkim në bazë, kërkim në listat e zgjedhura, importo bazën TAC IMEI, pyet bazën TAC.</p>
+                        <p>IMSI : kërkim në bazë ose në listat e zgjedhura.</p>
+                        <p>Numrat : kërkim sipas vlerës në bazë ose në listat e zgjedhura.</p>
+                        <p>Releja : krijo, importo, importo gjeolokalizime, kërko, menaxho (sipas të drejtave).</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-car"></i> LAPI</h4>
+                        <p>Immat. : kërko regjistrime sipas vlerës.</p>
+                        <p>Regjistrimet LAPI : krijo (bashkëngjit në një kërkesë), importo gjeolokalizime.</p>
+                    </div>
+
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-money-bill-wave"></i> Financiare</h4>
+                        <p>Llogaritë : kërkim sipas vlerës ose në listat e zgjedhura.</p>
+                        <p>Operacionet : importo gjeolokalizime, kërko sipas vlerës.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-network-wired"></i> IP</h4>
+                        <p>Regjistrimet IP : kërkim për regjistrime.</p>
+                        <p>Adresat IP : kërkim sipas vlerës.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-tags"></i> Multi-entitete &amp; Etiketa</h4>
+                        <p>Kërkim tekst i plotë, kërkim sipas shtrirjes kalendarike.</p>
+                        <p>Kërko etiketa dhe entitete të etiketuara.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-search"></i> Kërkesa</h4>
+                        <p>Historiku i 100 të fundit, rilësho, të preferuarat.</p>
+                    </div>
+                    
+                    <div class="menu-detail">
+                        <h4><i class="fas fa-question-circle"></i> Ndihmë</h4>
+                        <p>Manuali i përdoruesit, risitë e versionit, Rreth, Nomenklatura MCC/MNC (kodifikimi ITU E.212 për vendet/operatorët e IMSI &amp; disa identifikues të releve).</p>
+                    </div>
+                </div>
+                
+                <div class="info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Nomenklatura MCC/MNC</strong> : E dobishme për të interpretuar IMSI, CGI/eCGI dhe për të bashkëngjitur një identifikues në një vend/operator.</p>
+                </div>
+                
+                <h3>1.4 Organizimi &amp; hierarkizimi i të dhënave</h3>
+                <p>Struktura hierarkike : Baza e të dhënave (serveri) → Hapësira e punës → Procedurat → Dosjet/Nën-dosjet → Kërkesat/Nën-kërkesat.</p>
+                <p>Deri në 5 nivele organizimi dhe 5 nivele kërkesash.</p>
+                
+                <div class="good-practice">
+                    <p><i class="fas fa-check-circle"></i> <strong>Praktika të mira</strong></p>
+                    <p>Emërtim i qartë dhe unik (lehtëson kërkimin, ndarjen dhe eksportet).</p>
+                    <p>Organizo sipas çështjes dhe/ose sipas llojit të të dhënave (Bornage, Fatura të detajuara, Nxjerrje, Ngjarje…).</p>
+                    <p>Përdorni pamjet e ruajtura në fletët e rezultateve.</p>
+                </div>
+                
+                <h3>1.5 Preferencat (Skedar → Preferencat)</h3>
+                
+                <div class="two-columns">
+                    <div>
+                        <h4>Gjenerale</h4>
+                        <ul>
+                            <li>Gjuha &amp; zona kohore</li>
+                            <li>Fshi mesazhet e caktuara (import, licencë, të ndryshme)</li>
+                        </ul>
+                        
+                        <h4>Shfaqja</h4>
+                        <ul>
+                            <li>Formatet (data, kohëzgjatja, lat/long)</li>
+                            <li>Tabela (opsionet e shfaqjes së rezultateve)</li>
+                            <li>Tema</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>Importi i të dhënave</h4>
+                        <ul>
+                            <li>Përcakto direktoritë e paracaktuara (importe &amp; arkivim)</li>
+                        </ul>
+                        
+                        <h4>Eksporti</h4>
+                        <ul>
+                            <li>Dosjet e paracaktuara për Excel/LibreOffice (.xlsx), JSON, CSV, Raportet (.pdf/.docx/.odt), Analyst's Notebook (.anx), KML, Shapefile (ESRI), Grafikë (.svg/.graphml)</li>
+                        </ul>
+                        
+                        <h4>Hartografia</h4>
+                        <ul>
+                            <li>Serverat e pllakave (deri në 3), cache, gjeokodimi</li>
+                        </ul>
+                        
+                        <h4>Lidhjet e rrjetit</h4>
+                        <ul>
+                            <li>Proxy (IP/port, auth nëse është e nevojshme). Butoni Testo lidhjen.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Ruani profilet e preferencave sipas postit/përdorimit (analizë telefonike, hartografi e avancuar, kthim/prezantim…).</p>
+                </div>
+            </div>
+            
+            <div class="content" id="fiche2-sq">
+                <h2>Fleta 2 - Identifikimi i të dhënave</h2>
+                
+                <h3>2.1 Tipologjia e të dhënave të integrushme</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-user"></i> <strong>Identitetet</strong> : persona (fizikë/juridikë), numra, IMSI, IMEI, regjistrime, të dhëna bankare.</li>
+                    <li><i class="fas fa-phone"></i> <strong>Komunikimet</strong> : fatura të detajuara, bornage, profile, biseda.</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Ngjarjet</strong> : fije hetimi, etiketa (gjurmim automjetesh).</li>
+                    <li><i class="fas fa-archive"></i> <strong>Regjistrimet</strong> : LAPI (log/trajektore regjistrimi), nxjerrje (kutia, SIM, cloud, kompjuter, MBOX, rrjete sociale).</li>
+                    <li><i class="fas fa-broadcast-tower"></i> <strong>Reletë</strong> : identifikimet &amp; gjeolokalizimet (niveli i bazës).</li>
+                </ul>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Dokumentoni origjinën (operatori, periudha, formati) në përshkrimin e procedurës.</p>
+                </div>
+                
+                <h3>2.2 Identitetet &amp; identifikimet e releve</h3>
+                <p>Reletë : regjistrohen/menaxhohen në nivel serveri (menu jokontekstuale).</p>
+                <p>Identitetet : të lidhura me procedurat dhe/ose nxjerrjet e gjeneruara.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Kujdes me identitetet e ofruara nga operatorët : gabime të mundshme → kërkohet verifikim/kryqëzim.</p>
+                </div>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Gjithmonë vërtetoni dhe kryqëzoni identitetet para shfrytëzimit.</p>
+                </div>
+                
+                <h3>2.3 Ngjarjet</h3>
+                <p>Burimet : fije ngjarjesh të datuara dhe të gjeolokalizuara.</p>
+                <p>Objektet : çdo dokument që përshkruan ngjarje (të datuara + të lokalizuara).</p>
+                <p>Lidhja : korrelacione ndërmjet fakteve, faturave të detajuara/entiteteve dhe vendeve.</p>
+                
+                <h3>2.4 Regjistrimet, LAPI &amp; financiare</h3>
+                <p>Burimet : identitetet (regjistrimet), gjurmimi i regjistrimeve, log të LAPI (polici/doganë), llogari bankare &amp; operacione financiare.</p>
+                <p>Objektet : çertifikata automjeti, gjoba, video autostrade, LAPI me shumë burime, llogari bankare, operacione të datuara &amp; të lokalizuara.</p>
+                <p>Lidhja : automjete ↔ përdorues ↔ vende ; mbajtës llogarie ↔ vende (prania/përdorimet).</p>
+                
+                <h3>2.5 Adresat IP</h3>
+                <p>Burimet : regjistrime IP (furnizuesit e aksesit, platformat/shërbimet), ditarë aplikacionesh, kërkesa operatorësh.</p>
+                <p>Objektet : adresa IP (publike/private), orët, eventualisht portet/protokollet sipas burimeve.</p>
+                <p>Lidhja : bashkëngjitja e një aktiviteti rrjeti në një interval kohor dhe në një abonent/shërbim ; mbështetje për korrelacionet telefonikë ↔ internet.</p>
+                
+                <div class="visual-element">
+                    <i class="fas fa-link fa-2x"></i>
+                    <span style="margin-left: 15px;">Ndërlidhja e të dhënave me shumë burime</span>
+                </div>
+            </div>
+            
+            <div class="content" id="fiche3-sq">
+                <h2>Fleta 3 - Integrimi i të dhënave</h2>
+                
+                <h3>3.1 Pamje e përgjithshme</h3>
+                <div class="two-columns">
+                    <div>
+                        <h4>Krijimi manual</h4>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-user-plus"></i> Identitetet</li>
+                            <li><i class="fas fa-map-marked-alt"></i> Adresat</li>
+                            <li><i class="fas fa-calendar-plus"></i> Ngjarjet</li>
+                            <li><i class="fas fa-list"></i> Listat (zgjedhje, IMSI, IMEI, rele, regjistrime, përjashtime)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Importe automatike</h4>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-phone"></i> Komunikimet (fat. të detajuara/bornage)</li>
+                            <li><i class="fas fa-history"></i> Ngjarjet (fije/etiketa)</li>
+                            <li><i class="fas fa-car"></i> LAPI (log/gjurmim)</li>
+                            <li><i class="fas fa-archive"></i> Regjistrime të tjera</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p>Reletë &amp; gjeolokalizimet e releve : nëpërmjet menusë jokontekstuale.</p>
+                
+                <h3>3.2 Procesi i importit</h3>
+                <p>Dy raste :</p>
+                <ul class="icon-list">
+                    <li><i class="fas fa-check-circle"></i> Format i njohur → import automatik</li>
+                    <li><i class="fas fa-cog"></i> Format i panjohur → përcakto një hartëzim (kolona, vlera)</li>
+                </ul>
+                
+                <p>Hapat tipikë : skedar/vend → operator → lloji i kërkesës → nr. i abonentit → vërtetim → vazhdim.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Vëzhgoni formatet e datës, kokat, numrat e paqartë, drejtimin/rolin (abonenti kundrejt korrespondentit).</p>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Ruani shabllone hartëzimi për të standardizuar importet tuaja të përsëritura.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-file-import fa-2x"></i>
+                    <span style="margin-left: 15px;">Procesi i importit të të dhënave</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche4-sq">
+                <h2>Vizualizimi &amp; Fleta 4 - Analiza e të dhënave</h2>
+                
+                <h3>4.1 Mënyrat e vizualizimit</h3>
+                <div class="three-columns">
+                    <div>
+                        <h4><i class="fas fa-table"></i> Tabela</h4>
+                        <p>Renditja, filtrat, kolonat e shfaqura, pamjet e ruajtura (duke përfshirë ato të paracaktuara).</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-chart-line"></i> Grafikë</h4>
+                        <p>Komunikimet, rrethi i abonentit/nxjerrjes, IMEI/IMSI të lidhur.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-map"></i> Hartografia</h4>
+                        <p>Lokalizimet, harta e nxehtësisë (heat map), grumbullimet, kërkimi në afërsi, pikat e takimit/largimit.</p>
+                    </div>
+                </div>
+                
+                <p>Specifike : profili i komunikimit, bisedat, linja kohore (timeline).</p>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Kombinoni tabelë + grafikë + hartë për të zbuluar kontaktet kyçe, vendet e përsëritura dhe sekuencat kohore.</p>
+                </div>
+                
+                <h3>4.2 Organizimi i hapësirës së punës</h3>
+                <p>Dosjet/Nën-dosjet : sipas çështjes ose sipas llojit (Bornage, Fatura të detajuara, Nxjerrje, Ngjarje).</p>
+                <p>Fletët e rezultateve : rendit/filtro, ruaj pamjet.</p>
+                <p>Emërtim homogjen : thelbësor për eksportet &amp; bashkëpunimin.</p>
+                
+                <h3>4.3 Analiza e të dhënave</h3>
+                
+                <h4>Kërkimet</h4>
+                <p>Sipas vlerës, tekstit, rolit/drejtimit, shtrirjes kalendarike.</p>
+                <p>Mbi identitetet, numrat, IMEI, IMSI, rele, ngjarje, LAPI, IP.</p>
+                <p>Shfaqjet : lista, grafikë, harta (me gjeokodim).</p>
+                
+                <h4>Korrelacionet</h4>
+                <p>E zakonshme, e avancuar, referenciale, e ngjashme, e listës.</p>
+                
+                <h4>Kërkesa specifike</h4>
+                <p>Afërsia : elemente afër një pike të caktuar (rreze e konfigurueshme).</p>
+                <p>Pika e takimit/largimit : krahaso kërkesat ose bashkësitë.</p>
+                <p>Frekuencat &amp; flotat : sjellje të përsëritura, terminale të përbashkëta.</p>
+                
+                <h3>4.4 Detajet e kërkesave të avancuara</h3>
+                
+                <div class="menu-detail">
+                    <h4>Takimi/Largimi – i thjeshtë</h4>
+                    <p>Zgjedhja e kërkesave → rezultati = pika më e mirë.</p>
+                </div>
+                
+                <div class="menu-detail">
+                    <h4>Takimi/Largimi – i avancuar</h4>
+                    <p>Bashkësi, kufizime kohore dhe distanca, roli i abonentit/korrespondentit.</p>
+                </div>
+                
+                <div class="menu-detail">
+                    <h4>Korrelacioni "i zakonshëm" kundrejt "i avancuar"</h4>
+                    <p>I zakonshëm = kërkesat ndërmjet tyre (pa rol).</p>
+                    <p>I avancuar = bashkësi të plota (me rol).</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                    <span style="margin-left: 15px;">Analiza e avancuar e të dhënave</span>
+                </div>
+            </div>
+
+            <div class="content" id="fiche5-sq">
+                <h2>Fleta 5 - Kthimi/Prezantimi &amp; Mbyllja</h2>
+                
+                <h3>5.1 Kthimi/Prezantimi</h3>
+                <div class="two-columns">
+                    <div>
+                        <h4><i class="fas fa-file-pdf"></i> Raporte</h4>
+                        <p>Analiza e nxjerrjes/faturës së detajuar, elemente të rëndësishme, kronologji, harta/grafikë.</p>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-file-export"></i> Eksporte</h4>
+                        <p>Excel/CSV, Analyst's Notebook, KML, Shapefile, SVG/GraphML, imazhe.</p>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <p><i class="fas fa-lightbulb"></i> Përgatisni modele raportesh të ripërdorshme sipas rastit të përdorimit (viktimë, i dyshuar, LAPI…).</p>
+                </div>
+                
+                <h3>5.2 Kurthe &amp; zgjidhje</h3>
+                <ul class="icon-list">
+                    <li><i class="fas fa-copy"></i> Dublime teknike → pastrim/fshirje</li>
+                    <li><i class="fas fa-search"></i> Interpretime të nxituara → verifiko rolet/drejtimin, periudhat, burimet</li>
+                    <li><i class="fas fa-phone"></i> Numra të paqartë → saktëso vendin, operatorin, formatin</li>
+                </ul>
+                
+                <h3>5.3 Mbyllja e një procedure</h3>
+                <p>Verifiko kërkesat që mungojnë dhe plotësinë.</p>
+                <p>Arkivo procedurën (versione nëse është e nevojshme).</p>
+                <p>Ruaj identifikuesit / regjistrimet / LAPI në lista.</p>
+                <p>Ndarja / transferimi nëse është e nevojshme.</p>
+                
+                <div class="warning">
+                    <p><i class="fas fa-exclamation-triangle"></i> Kontrolloni autorizimet para shpërndarjes së arkivave.</p>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-file-contract fa-2x"></i>
+                    <span style="margin-left: 15px;">Kthimi/Prezantimi dhe mbyllja e procedurës</span>
+                </div>
+            </div>
+
+            <div class="content" id="pratiques-sq">
+                <h2>Shtojcat – Fleta praktike</h2>
+                
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <h4>Praktika 1 – Faturimi i detajuar (viktimë)</h4>
+                        <ul>
+                            <li>Rrethi : tabela të korrespondentëve, frekuencat, grafiku.</li>
+                            <li>Zakone gjeografike : rele, grumbullime sipas zonës, harta e nxehtësisë.</li>
+                            <li>Momenti i fakteve : komunikimet sipas intervalit, harta, grafiku i synuar.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Praktika 2 – Faturimi i detajuar (i dyshuar)</h4>
+                        <ul>
+                            <li>Rrethi &amp; frekuencat.</li>
+                            <li>Zakone gjeografike : zona, harta e nxehtësisë, korrelacion referencial.</li>
+                            <li>Mjetet e përdorura : 1 MSISDN ⇒ N IMEI, 1 IMEI ⇒ N MSISDN / N IMSI, 1 IMSI ⇒ N IMEI</li>
+                            <li>Konteksti : linja kohore, harta, komunikime të filtruara.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Praktika 3 – Dy karta SIM, një person?</h4>
+                        <ul>
+                            <li>Bashkë-prania : Takimi/Largimi i avancuar (distanca &lt; X m, kufizim kohor).</li>
+                            <li>Ndarja : e njëjta periudhë, distanca &gt; X m.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Praktika 4 – Ruajtja e rezultateve të analizës</h4>
+                        <ul>
+                            <li>Krijo dosjen "Rezultatet e analizave".</li>
+                            <li>Ruaj në formë listash (identifikues) ose kërkesash (rreshta).</li>
+                            <li>Emër i qartë + datë.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Praktika 5 – Automjete me interes (LAPI)</h4>
+                        <ul>
+                            <li>Korrelacion i regjistrimeve të përbashkëta ndërmjet dy logeve LAPI.</li>
+                            <li>Pika kalimi : gjurmimi i regjistrimeve + log LAPI.</li>
+                            <li>Kronologjia : linja kohore → rendi i kalimit, organizimi i grupit.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <h4>Praktika 6 – Qendra gjeografike interesi</h4>
+                        <ul>
+                            <li>Zgjedhje të shumëfishta (procedura ose hapësira).</li>
+                            <li>Projektime hartografike, grumbullime, harta të nxehtësisë.</li>
+                            <li>Shfrytëzo për mbikëqyrje të synuar, kërkim kamerash/LAPI, dëshmi.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="visual-element">
+                    <i class="fas fa-clipboard-list fa-2x"></i>
+                    <span style="margin-left: 15px;">Fleta praktike të analizës</span>
+                </div>
+            </div>
+        </div>
+        <div id="interface-en" style="display: none;">
+    <div class="tabs-container" id="tabs-en">
+        <div class="tab active" data-content-id="intro-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-home"></i> Introduction
+        </div>
+        <div class="tab" data-content-id="sheet1-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-desktop"></i> Sheet 1 - Environment
+        </div>
+        <div class="tab" data-content-id="sheet2-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-database"></i> Sheet 2 - Identify
+        </div>
+        <div class="tab" data-content-id="sheet3-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-file-import"></i> Sheet 3 - Integrate
+        </div>
+        <div class="tab" data-content-id="sheet4-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-chart-bar"></i> Sheet 4 - Analyze
+        </div>
+        <div class="tab" data-content-id="sheet5-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-file-export"></i> Sheet 5 - Report
+        </div>
+        <div class="tab" data-content-id="practices-en" onclick="showTab(this, 'en')">
+            <i class="fas fa-tasks"></i> Practices
+        </div>
+    </div>
+    
+    <div class="content active" id="intro-en">
+        <h2>Introduction</h2>
+        <p>Mercure is a data processing software dedicated to judicial investigations. It centralizes, cleans, and cross-references data from multiple sources in order to accelerate and ensure reliable analysis.</p>
+        
+        <h3>Main sources:</h3>
+        <ul class="icon-list">
+            <li><i class="fas fa-mobile-alt"></i> <strong>Telephony</strong>: cell tower traffic (location data), call detail records, IMSI catcher logs, device extractions (phones, hard drives).</li>
+            <li><i class="fas fa-file-alt"></i> <strong>Extractions</strong>: give access to calendars, identity lists, chat/message contents, geolocated points, activities, web searches…</li>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>Other sources</strong>: GPS trackers, ANPR (Automatic Number Plate Recognition), financial operations, IP logs.</li>
+        </ul>
+        
+        <h3>Why Mercure?</h3>
+        <div class="card">
+            <p>The volume and heterogeneity of data, as well as the preprocessing required before analysis, make a dedicated tool indispensable: normalization, advanced search, visualizations, correlations, and reporting.</p>
+        </div>
+        
+        <div class="visual-element">
+            <i class="fas fa-project-diagram fa-2x"></i>
+            <span style="margin-left: 15px;">Centralization of multi-source data</span>
+        </div>
+    </div>
+
+    <div class="content" id="sheet1-en">
+        <h2>Sheet 1 - Mercure Environment &amp; Organization</h2>
+        
+        <h3>1.1 Main window &amp; areas</h3>
+        <p>The main window is composed of:</p>
+        <ul class="icon-list">
+            <li><i class="fas fa-arrow-up"></i> <strong>Top</strong>: main menu bar (applies to the whole reference).</li>
+            <li><i class="fas fa-align-center"></i> <strong>Center</strong>: workspace area (your open workspaces).</li>
+            <li><i class="fas fa-arrow-down"></i> <strong>Bottom</strong>: status bar with text search and notification center (flag icon).</li>
+        </ul>
+        
+        <div class="tip">
+            <p><i class="fas fa-lightbulb"></i> <strong>Status bar – Instant search</strong>: type a term → items are highlighted in green → Enter to list results and navigate with ← / →.</p>
+        </div>
+        
+        <div class="info">
+            <p><i class="fas fa-info-circle"></i> <strong>Notification center</strong>: The flag turns red when there are unread notifications (watch list, workspace sharing). Double-click to open (marked as "read"). Auto-cleaning handled by Mercure.</p>
+        </div>
+        
+        <div class="info">
+            <p><i class="fas fa-info-circle"></i> <strong>Bulk import progress</strong>: A specific icon is displayed at the bottom right when a bulk import is in progress.</p>
+        </div>
+        
+        <h3>1.2 Menus and structure</h3>
+        <p>Mercure is organized around three types of complementary menus:</p>
+        <ul class="icon-list">
+            <li><i class="fas fa-bars"></i> <strong>Non-contextual menu (top bar)</strong>: Global management (database/reference, relays, generic imports, preferences, administration…)</li>
+            <li><i class="fas fa-mouse-pointer"></i> <strong>Contextual menu (right click)</strong>: Actions depending on the selected element (identities, numbers, IMEI, IMSI, relays, events, ANPR, financial, IP…)</li>
+            <li><i class="fas fa-window-restore"></i> <strong>Pop-up menu (table/graph/map)</strong>: Analysis shortcuts: copy, display on map, generate report, export, etc.</li>
+        </ul>
+        
+        <div class="tip">
+            <p><i class="fas fa-lightbulb"></i> Use **Ctrl + click** or **right click** to quickly access contextual menus depending on the area → time saver.</p>
+        </div>
+        
+        <h3>1.3 Details of main menus</h3>
+        
+        <div class="two-columns">
+            <div class="menu-detail">
+                <h4><i class="fas fa-file"></i> File</h4>
+                <p>Quit, Preferences, create workspace/category, delete queries/procedures, permissions (depending on rights), change password, bulk import reports, manage users (depending on rights), view connected clients (server), update import formats, restore a Mercure archive.</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-id-card"></i> Identities</h4>
+                <p>Create manually (to be linked to an existing identity list), search identities and identifiers across the whole database.</p>
+            </div>
+
+            <div class="menu-detail">
+                <h4><i class="fas fa-phone"></i> Telephony</h4>
+                <p>IMEI: search in database, search in selected lists, import TAC IMEI database, query TAC database.</p>
+                <p>IMSI: search in database or in selected lists.</p>
+                <p>Numbers: search by value in database or in selected lists.</p>
+                <p>Relays: create, import, import geolocations, search, administer (depending on rights).</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-car"></i> ANPR</h4>
+                <p>Plates: search license plates by value.</p>
+                <p>ANPR records: create (link to a query), import geolocations.</p>
+            </div>
+
+            <div class="menu-detail">
+                <h4><i class="fas fa-money-bill-wave"></i> Financial</h4>
+                <p>Accounts: search by value or in selected lists.</p>
+                <p>Operations: import geolocations, search by value.</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-network-wired"></i> IP</h4>
+                <p>IP records: search for records.</p>
+                <p>IP addresses: search by value.</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-tags"></i> Multi-entities &amp; Tags</h4>
+                <p>Full-text search, search by calendar range.</p>
+                <p>Search tags and tagged entities.</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-search"></i> Queries</h4>
+                <p>History of the last 100, relaunch, favorites.</p>
+            </div>
+            
+            <div class="menu-detail">
+                <h4><i class="fas fa-question-circle"></i> Help</h4>
+                <p>User manual, version updates, About, MCC/MNC Nomenclature (ITU E.212 coding for countries/operators of IMSI &amp; some relay identifiers).</p>
+            </div>
+        </div>
+        
+        <div class="info">
+            <p><i class="fas fa-info-circle"></i> <strong>MCC/MNC Nomenclature</strong>: Useful to interpret IMSI, CGI/eCGI and link an identifier to a country/operator.</p>
+        </div>
+        
+        <h3>1.4 Organization &amp; data hierarchy</h3>
+        <p>Hierarchical structure: Database (server) → Workspace → Procedures → Folders/Subfolders → Queries/Subqueries.</p>
+        <p>Up to 5 levels of organization and 5 levels of queries.</p>
+        
+        <div class="good-practice">
+            <p><i class="fas fa-check-circle"></i> <strong>Best practices</strong></p>
+            <p>Explicit and unique naming (facilitates search, sharing, and exports).</p>
+            <p>Organize by case and/or by data type (Cell tower, Call detail records, Extractions, Events…)</p>
+            <p>Use saved views on result sheets.</p>
+        </div>
+        
+        <h3>1.5 Preferences (File → Preferences)</h3>
+        
+        <div class="two-columns">
+            <div>
+                <h4>General</h4>
+                <ul>
+                    <li>Language &amp; timezone</li>
+                    <li>Delete certain messages (import, license, misc.)</li>
+                </ul>
+                
+                <h4>Display</h4>
+                <ul>
+                    <li>Formats (date, duration, lat/long)</li>
+                    <li>Tables (result display options)</li>
+                    <li>Theme</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4>Data import</h4>
+                <ul>
+                    <li>Set default directories (imports &amp; archiving)</li>
+                </ul>
+                
+                <h4>Export</h4>
+                <ul>
+                    <li>Default folders for Excel/LibreOffice (.xlsx), JSON, CSV, Reports (.pdf/.docx/.odt), Analyst's Notebook (.anx), KML, Shapefile (ESRI), Graphs (.svg/.graphml)</li>
+                </ul>
+                
+                <h4>Mapping</h4>
+                <ul>
+                    <li>Tile servers (up to 3), cache, geocoding</li>
+                </ul>
+                
+                <h4>Network connections</h4>
+                <ul>
+                    <li>Proxy (IP/port, auth if needed). Test connection button.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <p><i class="fas fa-lightbulb"></i> Save preference profiles depending on workstation/usage (telephony analysis, advanced mapping, reporting…)</p>
+        </div>
+    </div>
+    
+    <!-- ... continues with Sheet 2, 3, 4, 5, and Practices, all translated ... -->
+</div>
+    
+    <script>
+        const translations = {
+            fr: {
+                title: "Formation Mercure V5 - Fiches Pédagogiques Complètes",
+                h1: "Formation Mercure – Guide d'utilisateur simple",
+                p: "Logiciel de traitement de données dédié aux investigations judiciaires"
+            },
+            sq: {
+                title: "Trajnimi Mercure V5 - Fleta të Holla Pedagogjike të Plota",
+                h1: "Trajnim Mercure – Udhëzues i Thjeshtë Përdoruesi",
+                p: "Softuer për përpunimin e të dhënave i dedikuar hetimeve gjyqësore"
+            },
+            en: {
+                title: "Mercure Training V5 - Complete Educational Sheets",
+                h1: "Mercure Training – Simple User Guide",
+                p: "Data processing software dedicated to judicial investigations"
+            },
+
+        };
+
+                    let currentLang = 'fr';
+
+                function setLanguage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                
+                // 1. Update main texts
+                document.getElementById('pageTitle').textContent = translations[lang].title;
+                document.getElementById('header-h1').textContent = translations[lang].h1;
+                document.getElementById('header-p').textContent = translations[lang].p;
+
+                // 2. Show/Hide the right interface
+                document.getElementById('interface-fr').style.display = (lang === 'fr' ? 'block' : 'none');
+                document.getElementById('interface-sq').style.display = (lang === 'sq' ? 'block' : 'none');
+                document.getElementById('interface-en').style.display = (lang === 'en' ? 'block' : 'none');
+                
+                // 3. Activate the correct language button
+                document.getElementById('btn-fr').classList.remove('active-lang');
+                document.getElementById('btn-sq').classList.remove('active-lang');
+                document.getElementById('btn-en').classList.remove('active-lang');
+                document.getElementById(`btn-${lang}`).classList.add('active-lang');
+
+                // 4. Re-activate the first tab of the new language (Introduction)
+                const tabsContainer = document.getElementById(`tabs-${lang}`);
+                if (tabsContainer) {
+                    // Deactivate all old tabs
+                    tabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+                    // Select the first tab
+                    const firstTab = tabsContainer.querySelector('.tab');
+                    if (firstTab) {
+                        showTab(firstTab, lang);
+                    }
+             }
+
+        }
+
+        function showTab(selectedTab, lang) {
+            const contentId = selectedTab.getAttribute('data-content-id');
+            const interfaceContainer = document.getElementById(`interface-${lang}`);
+            const contents = interfaceContainer.querySelectorAll('.content');
+            const tabs = interfaceContainer.querySelectorAll('.tab');
+
+            // Fshih të gjitha përmbajtjet dhe ç'aktivizo të gjitha tabet
+            contents.forEach(content => content.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Shfaq përmbajtjen e zgjedhur dhe aktivizo tabin
+            document.getElementById(contentId).classList.add('active');
+            selectedTab.classList.add('active');
+        }
+
+        // S'assurer que le premier onglet est chargé par défaut
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('fr'); 
+        });
+
+    </script>
+</body>
+</html>

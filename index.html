@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Mercure — Accueil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root{
+      --primary:#2c3e50;--secondary:#3498db;--accent:#2980b9;--light:#ecf0f1;--dark:#2c3e50;
+      --success:#27ae60;--warning:#f39c12;--danger:#e74c3c;--gray:#7f8c8d
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    body{background-color:#f5f7fa;color:#333;line-height:1.6}
+    .container{max-width:1200px;margin:0 auto;padding:16px}
+    header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:20px;border-radius:16px;margin-bottom:16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{height:60px;width:auto}
+    .logo-icon{font-size:34px}
+    .logo-text{font-size:24px;font-weight:800}
+    .lang-selector{display:flex;gap:8px;flex-wrap:wrap}
+    .lang-button{padding:10px 14px;font-size:16px;font-weight:800;border:2px solid #fff;border-radius:999px;background:transparent;color:#fff;cursor:pointer;transition:.2s}
+    .lang-button.active{background:#fff;color:var(--primary)}
+    .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}
+    .home-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 6px 16px rgba(0,0,0,.08);border-left:6px solid var(--secondary);display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:transform .15s;border:none;text-align:left}
+    .home-card:hover{transform:translateY(-2px)}
+    .home-card i{color:var(--secondary);font-size:22px}
+    .home-card h3{margin:0 0 4px;color:var(--primary);font-size:18px}
+    .home-card p{margin:0;color:#555;font-size:.95rem}
+    .section-title{color:var(--primary);margin:12px 0 8px}
+    .module-wrap{display:none}
+    .module-wrap.active{display:block}
+    .nav-back{display:inline-flex;align-items:center;gap:8px;margin:8px 0 12px;color:var(--secondary);cursor:pointer;font-weight:700}
+    .frame{width:100%;height:82vh;border:0;border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.1);background:#fff}
+    @media (max-width:768px){.frame{height:78vh}}
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce){.home-card:hover{transform:none}}
+    /* focus */
+    .home-card:focus,.lang-button:focus,.nav-back:focus{outline:3px solid #fff;outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header role="banner">
+      <div class="logo">
+        <!-- Logo now linked to file instead of base64 -->
+        <img src="logo.png" alt="Logo Formation Mercure" />
+        <i class="fas fa-diagram-project logo-icon" aria-hidden="true"></i>
+        <div class="logo-text">Mercure V5 — Formation</div>
+      </div>
+
+      <div class="lang-selector" role="group" aria-label="Choisir la langue">
+        <button class="lang-button" data-lang="fr">🇫🇷 Français</button>
+        <button class="lang-button" data-lang="sq">🇦🇱 Shqip</button>
+        <button class="lang-button active" data-lang="en">🇬🇧 English</button>
+      </div>
+
+      <div class="header-content" style="text-align:center;">
+        <h1 id="home-title">Home — Choose a module</h1>
+        <p id="home-sub">Three modules: Sheets, Program & Quiz</p>
+      </div>
+    </header>
+
+    <!-- HOME -->
+    <section id="home">
+      <div class="home-grid">
+        <button class="home-card" data-target="mod-fiches" aria-label="Open Sheets">
+          <i class="fas fa-book" aria-hidden="true"></i>
+          <div>
+            <h3 id="card1-title">Teaching Sheets</h3>
+            <p id="card1-sub">Complete user guide with tabs (FR/SQ/EN)</p>
+          </div>
+        </button>
+
+        <button class="home-card" data-target="mod-programme" aria-label="Open Program">
+          <i class="fas fa-calendar-check" aria-hidden="true"></i>
+          <div>
+            <h3 id="card2-title">Training Program</h3>
+            <p id="card2-sub">3‑day pathway — theory & practice</p>
+          </div>
+        </button>
+
+        <button class="home-card" data-target="mod-qcm" aria-label="Open Quiz">
+          <i class="fas fa-question-circle" aria-hidden="true"></i>
+          <div>
+            <h3 id="card3-title">MCQ / Quiz</h3>
+            <p id="card3-sub">Final questionnaire — 20 questions</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section id="mod-fiches" class="module-wrap" aria-label="Module Fiches">
+      <div class="nav-back" data-back><i class="fas fa-arrow-left" aria-hidden="true"></i><span id="back-text">Back</span></div>
+      <h2 class="section-title" id="mod1-title">Module 1 — Teaching Sheets</h2>
+      <!-- Iframe now loads from a file -->
+      <iframe class="frame" id="frame-fiches" src="fiches_trilingues.html" title="Fiches pédagogiques"></iframe>
+    </section>
+
+    <section id="mod-programme" class="module-wrap" aria-label="Module Programme">
+      <div class="nav-back" data-back><i class="fas fa-arrow-left" aria-hidden="true"></i><span id="back-text2">Back</span></div>
+      <h2 class="section-title" id="mod2-title">Module 2 — Training Program</h2>
+      <iframe class="frame" id="frame-programme" src="programme_trilingue.html" title="Programme de formation"></iframe>
+    </section>
+
+    <section id="mod-qcm" class="module-wrap" aria-label="Module QCM">
+      <div class="nav-back" data-back><i class="fas fa-arrow-left" aria-hidden="true"></i><span id="back-text3">Back</span></div>
+      <h2 class="section-title" id="mod3-title">Module 3 — MCQ / Quiz</h2>
+      <iframe class="frame" id="frame-qcm" src="qcm_trilingue.html" title="QCM"></iframe>
+    </section>
+  </div>
+
+  <script>
+    // Internationalization for the shell (FR / SQ / EN)
+    const SHELL_I18N = {
+      fr: {
+        title: "Formation Mercure — Accueil",
+        home_title: "Accueil — Choisissez un module",
+        home_sub: "Trois modules : Fiches, Programme & QCM",
+        c1_t: "Fiches Pédagogiques",
+        c1_s: "Guide utilisateur complet en onglets (FR/SQ/EN)",
+        c2_t: "Programme de Formation",
+        c2_s: "Parcours en 3 jours — théorie & pratique",
+        c3_t: "QCM",
+        c3_s: "Questionnaire de fin — 20 questions",
+        back: "Retour",
+        m1_t: "Module 1 — Fiches Pédagogiques",
+        m2_t: "Module 2 — Programme de Formation",
+        m3_t: "Module 3 — QCM",
+        aria_home_open_sheets: "Ouvrir Fiches",
+        aria_home_open_program: "Ouvrir Programme",
+        aria_home_open_quiz: "Ouvrir QCM"
+      },
+      sq: {
+        title: "Formimi Mercure — Faqja kryesore",
+        home_title: "Faqja kryesore — Zgjidhni një modul",
+        home_sub: "Tre module: Fletë, Program & Pyetësor",
+        c1_t: "Fletë Pedagogjike",
+        c1_s: "Udhëzues i plotë me skeda (FR/SQ/EN)",
+        c2_t: "Programi i Trajnimit",
+        c2_s: "Rrugëtim 3-ditor — teori & praktikë",
+        c3_t: "Pyetësor (QCM)",
+        c3_s: "Pyetësor përfundimtar — 20 pyetje",
+        back: "Kthehu",
+        m1_t: "Moduli 1 — Fletë Pedagogjike",
+        m2_t: "Moduli 2 — Programi i Trajnimit",
+        m3_t: "Moduli 3 — Pyetësor",
+        aria_home_open_sheets: "Hap Fletët",
+        aria_home_open_program: "Hap Programin",
+        aria_home_open_quiz: "Hap Pyetësorin"
+      },
+      en: {
+        title: "Formation Mercure — Home",
+        home_title: "Home — Choose a module",
+        home_sub: "Three modules: Sheets, Program & Quiz",
+        c1_t: "Teaching Sheets",
+        c1_s: "Complete user guide with tabs (FR/SQ/EN)",
+        c2_t: "Training Program",
+        c2_s: "3-day pathway — theory & practice",
+        c3_t: "MCQ / Quiz",
+        c3_s: "Final questionnaire — 20 questions",
+        back: "Back",
+        m1_t: "Module 1 — Teaching Sheets",
+        m2_t: "Module 2 — Training Program",
+        m3_t: "Module 3 — MCQ / Quiz",
+        aria_home_open_sheets: "Open Sheets",
+        aria_home_open_program: "Open Program",
+        aria_home_open_quiz: "Open Quiz"
+      }
+    };
+
+    let currentLang = 'sq';
+
+    const frames = {
+      fiches: document.getElementById('frame-fiches'),
+      programme: document.getElementById('frame-programme'),
+      qcm: document.getElementById('frame-qcm')
+    };
+
+    function applyShellLanguage(lang){
+      const t = SHELL_I18N[lang] || SHELL_I18N.fr;
+      document.documentElement.lang = lang;
+      document.title = t.title;
+      document.getElementById('home-title').textContent = t.home_title;
+      document.getElementById('home-sub').textContent = t.home_sub;
+      document.getElementById('card1-title').textContent = t.c1_t;
+      document.getElementById('card1-sub').textContent = t.c1_s;
+      document.getElementById('card2-title').textContent = t.c2_t;
+      document.getElementById('card2-sub').textContent = t.c2_s;
+      document.getElementById('card3-title').textContent = t.c3_t;
+      document.getElementById('card3-sub').textContent = t.c3_s;
+      document.getElementById('back-text').textContent = t.back;
+      document.getElementById('back-text2').textContent = t.back;
+      document.getElementById('back-text3').textContent = t.back;
+
+      // Update ARIA labels for cards based on language
+      document.querySelector('[data-target="mod-fiches"]').setAttribute('aria-label', t.aria_home_open_sheets);
+      document.querySelector('[data-target="mod-programme"]').setAttribute('aria-label', t.aria_home_open_program);
+      document.querySelector('[data-target="mod-qcm"]').setAttribute('aria-label', t.aria_home_open_quiz);
+
+      // Broadcast lang to iframes (the inner pages can listen to this to switch language)
+      Object.values(frames).forEach(f => {
+        try { f.contentWindow.postMessage({ type: 'set-lang', lang }, '*'); } catch(_) {}
+      });
+
+      // Toggle active button UI
+      document.querySelectorAll('.lang-button').forEach(b => {
+        const active = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('active', active);
+      });
+    }
+
+    function showSection(id){
+      document.querySelectorAll('.module-wrap').forEach(s => s.classList.remove('active'));
+      document.getElementById('home').style.display = id ? 'none' : 'block';
+      if(id){
+        document.getElementById(id).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    document.querySelectorAll('.home-card').forEach(card => {
+      card.addEventListener('click', () => showSection(card.dataset.target));
+    });
+    document.querySelectorAll('[data-back]').forEach(el => {
+      el.addEventListener('click', () => showSection(null));
+    });
+    document.querySelectorAll('.lang-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentLang = btn.getAttribute('data-lang');
+        applyShellLanguage(currentLang);
+      });
+    });
+
+    // Apply language on initial load and when iframes finish loading
+    ['fiches','programme','qcm'].forEach(k => {
+      frames[k].addEventListener('load', () => applyShellLanguage(currentLang));
+    });
+    applyShellLanguage(currentLang);
+
+    // Optional: expose current language for embedded pages that cannot receive postMessage
+    window.FORMATION_MERCURE_LANG = () => currentLang;
+  </script>
+</body>
+</html>

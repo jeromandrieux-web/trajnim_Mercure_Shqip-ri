@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="page.title">QCM Mercure V5 - Mobile</title>
+  <style>
+    * { box-sizing: border-box;
+      margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); color: #333; line-height: 1.6; min-height: 100vh; display: flex;
+      align-items: center; justify-content: center; padding: 16px; }
+    .container { width: 100%; max-width: 920px; background: #fff; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2); overflow: hidden; position: relative; }
+    header { background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff; padding: 20px; text-align: center; position: relative; }
+    header h1 { font-size: 1.6rem; margin-bottom: 8px;
+    }
+    header p { font-size: .95rem; opacity: .95; }
+    .lang-switch { position: absolute;
+      right: 12px; top: 12px; display: flex; gap: 8px; }
+    .lang-btn { border: 0; background: rgba(255,255,255,.15); color: #fff;
+      padding: 6px 10px; border-radius: 999px; cursor: pointer; font-weight: 700; letter-spacing: .5px; }
+    .lang-btn.active { background: #fff;
+      color: #2c3e50; }
+    .lang-btn .flag { font-size: 1rem; margin-right: 6px;
+    }
+    .progress-container { background-color: #e0e0e0; height: 10px; width: 100%; }
+    .progress-bar { height: 100%;
+      width: 0%; background: linear-gradient(135deg, #2c3e50, #3498db); transition: width .3s ease; }
+    .instructions { background-color: #e8f4fc; padding: 16px;
+      border-bottom: 1px solid #d1e9fa; }
+    .instructions h2 { color: #2c3e50; margin-bottom: 8px; font-size: 1.1rem;
+    }
+    .instructions p { font-size: .95rem; }
+    .question { padding: 18px 14px;
+      border-bottom: 1px solid #eee; }
+    .question h3 { margin-bottom: 14px; color: #2c3e50; font-size: 1.05rem; display: flex;
+      align-items: center; gap: 8px; }
+    .question-number { background-color: #3498db; color: #fff; width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; }
+    .option { display: flex; align-items: center;
+      gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; transition: background-color .15s, border-color .15s;
+    }
+    .option:hover { background-color: #f0f7ff; border-color: #3498db; }
+    .option input { transform: scale(1.15);
+      cursor: pointer; }
+    .option label { cursor: pointer; flex: 1; font-size: .96rem;
+    }
+    .submit-container { padding: 18px; text-align: center; background-color: #f8f9fa; }
+    #submit-btn { background: linear-gradient(135deg,#2c3e50,#3498db);
+      color: #fff; border: none; padding: 14px 28px; font-size: 1.05rem; border-radius: 999px; cursor: pointer; font-weight: 800; width: 100%; max-width: 320px;
+    }
+    #submit-btn:hover { filter: brightness(1.05); }
+    #results { display: none; padding: 22px; text-align: center;
+      background-color: #e8f4fc; border-radius: 0 0 16px 16px; }
+    #score { font-size: 1.6rem; font-weight: 800; color: #2c3e50;
+      margin-bottom: 10px; }
+    #score-message { font-size: 1rem; margin-bottom: 14px; padding: 0 10px;
+    }
+    .correct { color: #27ae60; font-weight: 700; }
+    .incorrect { color: #e74c3c; font-weight: 700;
+    }
+    .feedback { margin-top: 16px; font-style: italic; color: #7f8c8d; font-size: .92rem;
+    }
+
+    .watermark { position: absolute; inset: 0; display: block; margin: auto; width: 60%; height: auto; opacity: 0.06;
+      pointer-events: none; user-select: none; z-index: 0; filter: grayscale(100%); }
+    @media (max-width: 520px){ .watermark { width: 75%;
+    } }
+    header, .instructions, form, #results { position: relative; z-index: 1;
+    }
+
+    @media (max-width: 520px){
+      header { padding-top: 60px;
+      }
+      .lang-switch {
+        left: 12px; right: 12px;
+        top: 12px;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+    }
+    @media (max-width: 480px){ header h1{font-size:1.3rem} .question h3{font-size:1rem} .option label{font-size:.9rem} #score{font-size:1.4rem} }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header>
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button type="button" class="lang-btn active" data-lang="fr" title="Français" aria-label="Français"><span class="flag" aria-hidden="true">🇫🇷</span> FR</button>
+        <button type="button" class="lang-btn" data-lang="sq" title="Shqip" aria-label="Shqip"><span class="flag" aria-hidden="true">🇦🇱</span> SQ</button>
+        <button type="button" class="lang-btn" data-lang="en" title="English" aria-label="English"><span class="flag" aria-hidden="true">🇬🇧</span> EN</button>
+      </div>
+      <h1 data-i18n="header.title">Formation Mercure V5</h1>
+      <p data-i18n="header.subtitle">Questionnaire à Choix Multiples - Version Mobile</p>
+    </header>
+
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+
+    <section class="instructions">
+      <h2 data-i18n="instructions.title">Instructions :</h2>
+      <p data-i18n="instructions.line1">Ce QCM comporte 20 questions. Pour chaque question, choisissez la réponse correcte.</p>
+      <p data-i18n="instructions.line2">Cliquez sur « Soumettre » à la fin pour voir votre score.</p>
+    </section>
+
+    <form id="qcm-form" novalidate>
+      <div class="question">
+        <h3><span class="question-number">1</span><span data-i18n="q1.title">Que permet le menu non contextuel dans Mercure ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q1" value="a"><span data-i18n="q1.a">Fusionner les cellules dans l'affichage</span></label>
+          <label class="option"><input type="radio" name="q1" value="b"><span data-i18n="q1.b">Effectuer des recherches sur l'ensemble de la base</span></label>
+          <label class="option"><input type="radio" name="q1" value="c"><span data-i18n="q1.c">Fusionner des réquisitions</span></label>
+          <label class="option"><input type="radio" name="q1" value="d"><span data-i18n="q1.d">Retirer les doublons contenus dans une réquisition</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">2</span><span data-i18n="q2.title">Que peut-on faire avec les menus de l'espace de travail ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q2" value="a"><span data-i18n="q2.a">Ajouter/supprimer une procédure</span></label>
+          <label class="option"><input type="radio" name="q2" value="b"><span data-i18n="q2.b">Changer les préférences de l'interface</span></label>
+          <label class="option"><input type="radio" name="q2" value="c"><span data-i18n="q2.c">Changer la couleur de fond</span></label>
+          <label class="option"><input type="radio" name="q2" value="d"><span data-i18n="q2.d">Créer un raccourci clavier</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">3</span><span data-i18n="q3.title">Dans une procédure, le menu déroulant permet de…</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q3" value="a"><span data-i18n="q3.a">Fusionner des procédures</span></label>
+          <label class="option"><input type="radio" name="q3" value="b"><span data-i18n="q3.b">Ajouter dossiers ou réquisitions</span></label>
+          <label class="option"><input type="radio" name="q3" value="c"><span data-i18n="q3.c">Copier des réquisitions</span></label>
+          <label class="option"><input type="radio" name="q3" value="d"><span data-i18n="q3.d">Changer les préférences</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">4</span><span data-i18n="q4.title">Sur une réquisition, quelles actions sont-elles possibles ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="a"><span data-i18n="q4.a">Enlever, Détruire, Fusionner des données</span></label>
+          <label class="option"><input type="radio" name="q4" value="b"><span data-i18n="q4.b">Créer un mot de passe</span></label>
+          <label class="option"><input type="radio" name="q4" value="c"><span data-i18n="q4.c">Imprimer les résultats d'une analyse</span></label>
+          <label class="option"><input type="radio" name="q4" value="d"><span data-i18n="q4.d">Créer des dossiers</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">5</span><span data-i18n="q5.title">Quelles sont les actions directes proposées par l'espace de travail ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="a"><span data-i18n="q5.a">Enregistrer des préférences</span></label>
+          <label class="option"><input type="radio" name="q5" value="b"><span data-i18n="q5.b">Regrouper des procédures/dossiers/réquisitions</span></label>
+          <label class="option"><input type="radio" name="q5" value="c"><span data-i18n="q5.c">Importer des communications</span></label>
+          <label class="option"><input type="radio" name="q5" value="d"><span data-i18n="q5.d">Créer des dossiers</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">6</span><span data-i18n="q6.title">Quelles types de données sont importables ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q6" value="a"><span data-i18n="q6.a">De téléphonie, banque, géolocalisation</span></label>
+          <label class="option"><input type="radio" name="q6" value="b"><span data-i18n="q6.b">Photos</span></label>
+          <label class="option"><input type="radio" name="q6" value="c"><span data-i18n="q6.c">Vidéos</span></label>
+          <label class="option"><input type="radio" name="q6" value="d"><span data-i18n="q6.d">Audio</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">7</span><span data-i18n="q7.title">Peut-on déplacer des réquisitions entre dossiers ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q7" value="a"><span data-i18n="q7.a">Oui</span></label>
+          <label class="option"><input type="radio" name="q7" value="b"><span data-i18n="q7.b">Non</span></label>
+          <label class="option"><input type="radio" name="q7" value="c"><span data-i18n="q7.c">Seulement bancaires</span></label>
+          <label class="option"><input type="radio" name="q7" value="d"><span data-i18n="q7.d">Seulement admin</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">8</span><span data-i18n="q8.title">Quel format est le plus utilisé pour l'importation ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q8" value="a"><span data-i18n="q8.a">PDF</span></label>
+          <label class="option"><input type="radio" name="q8" value="b"><span data-i18n="q8.b">CSV</span></label>
+          <label class="option"><input type="radio" name="q8" value="c"><span data-i18n="q8.c">DOC</span></label>
+          <label class="option"><input type="radio" name="q8" value="d"><span data-i18n="q8.d">JPEG</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">9</span><span data-i18n="q9.title">Lors d'un import, il est important de vérifier:</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q9" value="a"><span data-i18n="q9.a">La correspondance des colonnes</span></label>
+          <label class="option"><input type="radio" name="q9" value="b"><span data-i18n="q9.b">Le nombre de colonnes</span></label>
+          <label class="option"><input type="radio" name="q9" value="c"><span data-i18n="q9.c">Le nombre de lignes</span></label>
+          <label class="option"><input type="radio" name="q9" value="d"><span data-i18n="q9.d">Les identités</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">10</span><span data-i18n="q10.title">L'import en masse permet ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q10" value="a"><span data-i18n="q10.a">D'importer plusieurs fichiers en une seule fois</span></label>
+          <label class="option"><input type="radio" name="q10" value="b"><span data-i18n="q10.b">De supprimer des réquisitions en une fois</span></label>
+          <label class="option"><input type="radio" name="q10" value="c"><span data-i18n="q10.c">D'importer automatiquement un dossier sans vérification</span></label>
+          <label class="option"><input type="radio" name="q10" value="d"><span data-i18n="q10.d">De clôturer plusieurs procédures</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">11</span><span data-i18n="q11.title">Peut-on adapter un fichier opérateur partiellement compatible ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q11" value="a"><span data-i18n="q11.a">Oui par correspondance manuelle des données</span></label>
+          <label class="option"><input type="radio" name="q11" value="b"><span data-i18n="q11.b">Oui par export automatique</span></label>
+          <label class="option"><input type="radio" name="q11" value="c"><span data-i18n="q11.c">Oui par renommage automatique</span></label>
+          <label class="option"><input type="radio" name="q11" value="d"><span data-i18n="q11.d">Non</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">12</span><span data-i18n="q12.title">À quoi sert une requête dans une réquisition ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q12" value="a"><span data-i18n="q12.a">A croiser des données</span></label>
+          <label class="option"><input type="radio" name="q12" value="b"><span data-i18n="q12.b">A Créer des procédures</span></label>
+          <label class="option"><input type="radio" name="q12" value="c"><span data-i18n="q12.c">A Créer des dossiers</span></label>
+          <label class="option"><input type="radio" name="q12" value="d"><span data-i18n="q12.d">A changer la langue de l'interface</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">13</span><span data-i18n="q13.title">Quel est le menu principal pour faire des exploitations de données entre réquisitions ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q13" value="a"><span data-i18n="q13.a">Le menu fichier</span></label>
+          <label class="option"><input type="radio" name="q13" value="b"><span data-i18n="q13.b">Le menu téléphonie</span></label>
+          <label class="option"><input type="radio" name="q13" value="c"><span data-i18n="q13.c">Le menu archive</span></label>
+          <label class="option"><input type="radio" name="q13" value="d"><span data-i18n="q13.d">Le menu tableau</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">14</span><span data-i18n="q14.title">Quel est le résultat donné par la requête fréquence par nombre de communications ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q14" value="a"><span data-i18n="q14.a">Les IMEI les plus utilisés par ligne</span></label>
+          <label class="option"><input type="radio" name="q14" value="b"><span data-i18n="q14.b">Les numéros de correspondants avec lesquels il y a le plus de communications en nombre d'appel</span></label>
+          <label class="option"><input type="radio" name="q14" value="c"><span data-i18n="q14.c">Les numéros de correspondants avec lesquels il y a le plus de communications par durée</span></label>
+          <label class="option"><input type="radio" name="q14" value="d"><span data-i18n="q14.d">L'identification d'une flotte de numéros de portables mobiles</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">15</span><span data-i18n="q15.title">Peut-on partager les données issues d'autres affaires avec différents utilisateurs en version monoposte ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q15" value="a"><span data-i18n="q15.a">Non impossible sans la version serveur</span></label>
+          <label class="option"><input type="radio" name="q15" value="b"><span data-i18n="q15.b">Oui en utilisant l'option archive</span></label>
+          <label class="option"><input type="radio" name="q15" value="c"><span data-i18n="q15.c">Oui avec l'onglet partage de l'espace de travail</span></label>
+          <label class="option"><input type="radio" name="q15" value="d"><span data-i18n="q15.d">Oui avec l'onglet copie</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">16</span><span data-i18n="q16.title">Est-il possible de rechercher des numéros communs entre plusieurs lignes ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q16" value="a"><span data-i18n="q16.a">Oui dans le menu numéros</span></label>
+          <label class="option"><input type="radio" name="q16" value="b"><span data-i18n="q16.b">Oui dans le menu communications</span></label>
+          <label class="option"><input type="radio" name="q16" value="c"><span data-i18n="q16.c">Non</span></label>
+          <label class="option"><input type="radio" name="q16" value="d"><span data-i18n="q16.d">Oui dans le menu géocode</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">17</span><span data-i18n="q17.title">Que permet le heat map dans la représentation graphique ?</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q17" value="a"><span data-i18n="q17.a">De connaitre la fréquence d'appel vers un numéro en particulier</span></label>
+          <label class="option"><input type="radio" name="q17" value="b"><span data-i18n="q17.b">D'identifier un correspondant commun à une autre ligne</span></label>
+          <label class="option"><input type="radio" name="q17" value="c"><span data-i18n="q17.c">De connaitre la localisation où les communications sont les plus denses</span></label>
+          <label class="option"><input type="radio" name="q17" value="d"><span data-i18n="q17.d">De faire une recherche sur la proximité d'une autre ligne</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">18</span><span data-i18n="q18.title">Le rapport d'analyse fadet permet il:</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q18" value="a"><span data-i18n="q18.a">D'identifier tous les correspondants de la ligne</span></label>
+          <label class="option"><input type="radio" name="q18" value="b"><span data-i18n="q18.b">De faire un schéma relationnel</span></label>
+          <label class="option"><input type="radio" name="q18" value="c"><span data-i18n="q18.c">De lister l'intégralité des relais téléphoniques utilisés par la ligne</span></label>
+          <label class="option"><input type="radio" name="q18" value="d"><span data-i18n="q18.d">D'identifier les IMEI (N° de série des appareils mobile) et leur période d'utilisation</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">19</span><span data-i18n="q19.title">Pour importer des données bancaires faut-il:</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q19" value="a"><span data-i18n="q19.a">Importer directement le fichier original de la banque PDF</span></label>
+          <label class="option"><input type="radio" name="q19" value="b"><span data-i18n="q19.b">Référencer le compte bancaire ou le numéro de carte bancaire toujours de la même façon</span></label>
+          <label class="option"><input type="radio" name="q19" value="c"><span data-i18n="q19.c">Calculer le nombre de transaction par relevé bancaire a importé</span></label>
+          <label class="option"><input type="radio" name="q19" value="d"><span data-i18n="q19.d">Les associer automatiquement avec des données téléphoniques</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <h3><span class="question-number">20</span><span data-i18n="q20.title">L'import de métas données permet-il:</span></h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="q20" value="a"><span data-i18n="q20.a">D'afficher des fichiers image extrait d'un téléphone mobile</span></label>
+          <label class="option"><input type="radio" name="q20" value="b"><span data-i18n="q20.b">De traiter le résultat d'une extraction répertoire faite par un logiciel tel que UFED cellebrite</span></label>
+          <label class="option"><input type="radio" name="q20" value="c"><span data-i18n="q20.c">De traiter les éléments contenus dans un rapport PDF issu d'une extraction faite par un logiciel tiers (UFED,MSAB..)</span></label>
+          <label class="option"><input type="radio" name="q20" value="d"><span data-i18n="q20.d">De traiter les fichiers audio d'écoutes téléphoniques</span></label>
+        </div>
+      </div>
+
+      <div class="submit-container">
+        <button type="button" id="submit-btn" data-i18n="buttons.submit">Soumettre le QCM</button>
+      </div>
+    </form>
+
+    <section id="results" aria-live="polite">
+      <div id="score"></div>
+      <div id="score-message"></div>
+      <div id="corrections"></div>
+    </section>
+  </div>
+
+  <script>
+    const correctAnswers = { q1:'b', q2:'a', q3:'b', q4:'a', q5:'b', q6:'a', q7:'a', q8:'b', q9:'a', q10:'a', q11:'a', q12:'a', q13:'d', q14:'b', q15:'b', q16:'a', q17:'c', q18:'d', q19:'b', q20:'b' };
+    
+    // Dictionnaire de traduction (I18N) complet pour les trois langues
+    const I18N = {
+      fr: {
+        'page.title': 'QCM Mercure V5 - Mobile',
+        'header.title': 'Formation Mercure V5',
+        'header.subtitle': 'Questionnaire à Choix Multiples - Version Mobile',
+        'instructions.title': 'Instructions :',
+        'instructions.line1': 'Ce QCM comporte 20 questions. Pour chaque question, choisissez la réponse correcte.',
+        'instructions.line2': 'Cliquez sur « Soumettre » à la fin pour voir votre score.',
+        'buttons.submit': 'Soumettre le QCM',
+        'labels.score': 'Votre Score : {score} / 20',
+        'labels.correct': 'Correct',
+        'labels.incorrect': 'Incorrect',
+        'labels.unanswered': 'Non répondu',
+        'labels.rightAnswer': 'La bonne réponse était : {ans}',
+        'messages.excellent': 'Excellent travail ! Vous maîtrisez parfaitement les sujets !',
+        'messages.verygood': 'Très bien ! Bonne compréhension des concepts principaux.',
+        'messages.ok': 'Score correct. Revoyez les points qui vous ont posé problème.',
+        'messages.retry': 'Vous devez revoir la formation pour améliorer votre score.',
+        'corrections.title': 'Corrections Détaillées',
+        'q1.title': 'Que permet le menu non contextuel dans Mercure ?',
+        'q1.a': 'Fusionner les cellules dans l\'affichage',
+        'q1.b': 'Effectuer des recherches sur l\'ensemble de la base',
+        'q1.c': 'Fusionner des réquisitions',
+        'q1.d': 'Retirer les doublons contenus dans une réquisition',
+        'q2.title': 'Que peut-on faire avec les menus de l\'espace de travail ?',
+        'q2.a': 'Ajouter/supprimer une procédure',
+        'q2.b': 'Changer les préférences de l\'interface',
+        'q2.c': 'Changer la couleur de fond',
+        'q2.d': 'Créer un raccourci clavier',
+        'q3.title': 'Dans une procédure, le menu déroulant permet de…',
+        'q3.a': 'Fusionner des procédures',
+        'q3.b': 'Ajouter dossiers ou réquisitions',
+        'q3.c': 'Copier des réquisitions',
+        'q3.d': 'Changer les préférences',
+        'q4.title': 'Sur une réquisition, quelles actions sont-elles possibles ?',
+        'q4.a': 'Enlever, Détruire, Fusionner des données',
+        'q4.b': 'Créer un mot de passe',
+        'q4.c': 'Imprimer les résultats d\'une analyse',
+        'q4.d': 'Créer des dossiers',
+        'q5.title': 'Quelles sont les actions directes proposées par l\'espace de travail ?',
+        'q5.a': 'Enregistrer des préférences',
+        'q5.b': 'Regrouper des procédures/dossiers/réquisitions',
+        'q5.c': 'Importer des communications',
+        'q5.d': 'Créer des dossiers',
+        'q6.title': 'Quelles types de données sont importables ?',
+        'q6.a': 'De téléphonie, banque, géolocalisation',
+        'q6.b': 'Photos',
+        'q6.c': 'Vidéos',
+        'q6.d': 'Audio',
+        'q7.title': 'Peut-on déplacer des réquisitions entre dossiers ?',
+        'q7.a': 'Oui',
+        'q7.b': 'Non',
+        'q7.c': 'Seulement bancaires',
+        'q7.d': 'Seulement admin',
+        'q8.title': 'Quel format est le plus utilisé pour l\'importation ?',
+        'q8.a': 'PDF',
+        'q8.b': 'CSV',
+        'q8.c': 'DOC',
+        'q8.d': 'JPEG',
+        'q9.title': 'Lors d\'un import, il est important de vérifier:',
+        'q9.a': 'La correspondance des colonnes',
+        'q9.b': 'Le nombre de colonnes',
+        'q9.c': 'Le nombre de lignes',
+        'q9.d': 'Les identités',
+        'q10.title': 'L\'import en masse permet ?',
+        'q10.a': 'D\'importer plusieurs fichiers en une seule fois',
+        'q10.b': 'De supprimer des réquisitions en une fois',
+        'q10.c': 'D\'importer automatiquement un dossier sans vérification',
+        'q10.d': 'De clôturer plusieurs procédures',
+        'q11.title': 'Peut-on adapter un fichier opérateur partiellement compatible ?',
+        'q11.a': 'Oui par correspondance manuelle des données',
+        'q11.b': 'Oui par export automatique',
+        'q11.c': 'Oui par renommage automatique',
+        'q11.d': 'Non',
+        'q12.title': 'À quoi sert une requête dans une réquisition ?',
+        'q12.a': 'A croiser des données',
+        'q12.b': 'A Créer des procédures',
+        'q12.c': 'A Créer des dossiers',
+        'q12.d': 'A changer la langue de l\'interface',
+        'q13.title': 'Quel est le menu principal pour faire des exploitations de données entre réquisitions ?',
+        'q13.a': 'Le menu fichier',
+        'q13.b': 'Le menu téléphonie',
+        'q13.c': 'Le menu archive',
+        'q13.d': 'Le menu tableau',
+        'q14.title': 'Quel est le résultat donné par la requête fréquence par nombre de communications ?',
+        'q14.a': 'Les IMEI les plus utilisés par ligne',
+        'q14.b': 'Les numéros de correspondants avec lesquels il y a le plus de communications en nombre d\'appel',
+        'q14.c': 'Les numéros de correspondants avec lesquels il y a le plus de communications par durée',
+        'q14.d': 'L\'identification d\'une flotte de numéros de portables mobiles',
+        'q15.title': 'Peut-on partager les données issues d\'autres affaires avec différents utilisateurs en version monoposte ?',
+        'q15.a': 'Non impossible sans la version serveur',
+        'q15.b': 'Oui en utilisant l\'option archive',
+        'q15.c': 'Oui avec l\'onglet partage de l\'espace de travail',
+        'q15.d': 'Oui avec l\'onglet copie',
+        'q16.title': 'Est-il possible de rechercher des numéros communs entre plusieurs lignes ?',
+        'q16.a': 'Oui dans le menu numéros',
+        'q16.b': 'Oui dans le menu communications',
+        'q16.c': 'Non',
+        'q16.d': 'Oui dans le menu géocode',
+        'q17.title': 'Que permet le heat map dans la représentation graphique ?',
+        'q17.a': 'De connaitre la fréquence d\'appel vers un numéro en particulier',
+        'q17.b': 'D\'identifier un correspondant commun à une autre ligne',
+        'q17.c': 'De connaitre la localisation où les communications sont les plus denses',
+        'q17.d': 'De faire une recherche sur la proximité d\'une autre ligne',
+        'q18.title': 'Le rapport d\'analyse fadet permet il:',
+        'q18.a': 'D\'identifier tous les correspondants de la ligne',
+        'q18.b': 'De faire un schéma relationnel',
+        'q18.c': 'De lister l\'intégralité des relais téléphoniques utilisés par la ligne',
+        'q18.d': 'D\'identifier les IMEI (N° de série des appareils mobile) et leur période d\'utilisation',
+        'q19.title': 'Pour importer des données bancaires faut-il:',
+        'q19.a': 'Importer directement le fichier original de la banque PDF',
+        'q19.b': 'Référencer le compte bancaire ou le numéro de carte bancaire toujours de la même façon',
+        'q19.c': 'Calculer le nombre de transaction par relevé bancaire a importé',
+        'q19.d': 'Les associer automatiquement avec des données téléphoniques',
+        'q20.title': 'L\'import de métas données permet-il:',
+        'q20.a': 'D\'afficher des fichiers image extrait d\'un téléphone mobile',
+        'q20.b': 'De traiter le résultat d\'une extraction répertoire faite par un logiciel tel que UFED cellebrite',
+        'q20.c': 'De traiter les éléments contenus dans un rapport PDF issu d\'une extraction faite par un logiciel tiers (UFED,MSAB..)',
+        'q20.d': 'De traiter les fichiers audio d\'écoutes téléphoniques',
+      },
+      sq: {
+        'page.title': 'Mercure V5 – Pyetësor (Mobile)',
+        'header.title': 'Trajnimi Mercure V5',
+        'header.subtitle': 'Pyetësor me Zgjedhje – Versioni celula',
+        'instructions.title': 'Udhëzime:',
+        'instructions.line1': 'Ky pyetësor ka 20 pyetje. Për secilën pyetje, zgjidhni përgjigjen e saktë.',
+        'instructions.line2': 'Klikoni “Dorëzo” në fund për të parë rezultatin tuaj.',
+        'buttons.submit': 'Dorëzo pyetësorin',
+         'labels.score': 'Rezultati: {score}/20',
+        'labels.correct': 'Saktë',
+        'labels.incorrect': 'Gabim',
+        'labels.unanswered': 'Pa përgjigje',
+        'labels.rightAnswer': 'Përgjigjja e saktë ishte: {ans}',
+        'messages.excellent': 'Shkëlqyeshëm! E zotëroni plotësisht Mercure V5.',
+        'messages.verygood': 'Shumë mirë! Keni njohuri të mira për Mercure V5.',
+        'messages.ok': 'Mjaftueshëm! Keni bazat, por duhet të rishikoni disa aspekte.',
+        'messages.retry': 'Do të ishte mirë të rishikonit trajnimin Mercure V5.',
+        'corrections.title': 'Korrigjimet:',
+        'q1.title' : 'Çfarë mundëson menuja jo-kontekstuale në Mercure?',
+        'q1.a': 'Bashkimin e qelizave kur shfaqen',
+        'q1.b': 'Kryerjen e kërkimeve mbi të gjithë bazën e të dhënave',
+        'q1.c': 'Bashkimin e kërkesave',
+        'q1.d': 'Heqjen e dublikatave të përmbajtura në një kërkesë',
+        'q2.title': 'Çfarë mund të bëhet me menutë e hapësirës së punës?',
+        'q2.a': 'Shtim/heqje të një procedure',
+        'q2.b': 'Ndryshimi i preferencave të ndërfaqes',
+        'q2.c': 'Ndryshimi i ngjyrës së sfondit',
+        'q2.d': 'Krijimi i një shkurtese me tastierën',
+        'q3.title': 'Në një procedurë, menuja që zbret mundëson…',
+        'q3.a': 'Bashkimin e procedurave',
+        'q3.b': 'Shtimin e dosjeve ose të kërkesave',
+        'q3.c': 'Kopjimin e kërkesave',
+        'q3.d': 'Ndryshimin e preferencave',
+        'q4.title': 'Mbi një kërkesë, cilat veprime janë të mundshme?',
+        'q4.a': 'Heqje, Fshirje, Bashkim të të dhënave',
+        'q4.b': 'Krijimin e një fjalëkalimi',
+        'q4.c': 'Printimin e rezultateve të një analize',
+        'q4.d': 'Krijimin e një dosjeje',
+        'q5.title': 'Cilat janë veprimet direkte të propozuara nga hapësira e punës?',
+        'q5.a': 'Ruajtja e preferencave',
+        'q5.b': 'Grupimi i procedurave/dosjeve/kërkesave',
+        'q5.c': 'Importimi i komunikimeve',
+        'q5.d': 'Krijimi i dosjeve',
+        'q6.title': 'Çfarë lloj të dhënash janë të importueshme?',
+        'q6.a': 'Telefonike, bankare, gjeolokalizimi',
+        'q6.b': 'Foto',
+        'q6.c': 'Video',
+        'q6.d': 'Audio',
+        'q7.title': 'A mund të zhvendosen kërkesat midis dosjeve?',
+        'q7.a': 'Po',
+        'q7.b': 'Jo',
+        'q7.c': 'Vetëm bankare',
+        'q7.d': 'Vetëm administrative',
+        'q8.title': 'Cili format përdoret më shumë për importimin?',
+        'q8.a': 'PDF',
+        'q8.b': 'CSV',
+        'q8.c': 'DOC',
+        'q8.d': 'JPEG',
+        'q9.title': 'Gjatë një importi është e rëndësishme të kontrollohet:',
+        'q9.a': 'Përputhshmëria e kolonave',
+        'q9.b': 'Numri i kolonave',
+        'q9.c': 'Numri i rreshtave',
+        'q9.d': 'Identitetet',
+        'q10.title': 'Importimi në masë mundëson:',
+        'q10.a': 'Importimin e disa skedarëve njëherësh',
+        'q10.b': 'Heqjen e kërkesave njëherësh',
+        'q10.c': 'Importimin automatik të një dosjeje pa verifikim',
+        'q10.d': 'Mbylljen e disa procedurave',
+        'q11.title': 'A mund të përshtatet një skedar operatori pjesërisht i përputhshëm?',
+        'q11.a': 'Po, me përputhje manuale të të dhënave',
+        'q11.b': 'Po, me eksport automatik',
+        'q11.c': 'Po, me riemërtim automatik',
+        'q11.d': 'Jo',
+        'q12.title': 'Për çfarë shërben një pyetje kërkimi brenda një kërkese?',
+        'q12.a': 'Për të kryqëzuar të dhëna',
+        'q12.b': 'Për të krijuar procedura',
+        'q12.c': 'Për të krijuar dosje',
+        'q12.d': 'Për të ndryshuar gjuhën e ndërfaqes',
+        'q13.title': 'Cila është menuja kryesore për të kryer shfrytëzime të të dhënave midis kërkesave?',
+        'q13.a': 'Menuja skedar',
+        'q13.b': 'Menuja e telefonisë',
+        'q13.c': 'Menuja arkiva',
+        'q13.d': 'Menuja tabelë',
+        'q14.title': 'Cili është rezultati i dhënë nga kërkesa “frekuencë sipas numrit të komunikimeve”?',
+        'q14.a': 'IMEI-t më të përdorura sipas linjës',
+        'q14.b': 'Numrat e korrespondentëve me më shumë komunikime sipas numrit të thirrjeve',
+        'q14.c': 'Numrat e korrespondentëve me më shumë komunikime sipas kohëzgjatjes',
+        'q14.d': 'Identifikimin e një grupimi numrash celularësh',
+        'q15.title': 'A mund të ndahen të dhënat nga çështje të tjera me përdorues të ndryshëm në versionin monopost?',
+        'q15.a': 'Jo, e pamundur pa versionin server',
+        'q15.b': 'Po, duke përdorur opsionin arkiva',
+        'q15.c': 'Po, me skedën “ndaje” të hapësirës së punës',
+        'q15.d': 'Po, me skedën “kopjo” ',
+        'q16.title': 'A është e mundur të kërkohen numra të përbashkët midis disa linjave? ',
+        'q16.a': 'Po, te menuja numra',
+        'q16.b': 'Po, te menuja komunikime',
+        'q16.c': 'Jo',
+        'q16.d': 'Po, te menuja gjeokod',
+        'q17.title': 'Çfarë mundëson “heat map” në përfaqësimin grafik?',
+        'q17.a': 'Të dihet frekuenca e thirrjeve drejt një numri të caktuar',
+        'q17.b': 'Të identifikohet një korrespondent i përbashkët me një linjë tjetër',
+        'q17.c': 'Të dihet vendndodhja ku komunikimet janë më të dendura',
+        'q17.d': 'Të kryhet një kërkim mbi afërsinë e një linje tjetër',
+        'q18.title': 'Raporti i analizës së faturës së detajuar të komunikimit telefonik mundëson:',
+        'q18.a': 'Identifikimin e të gjithë korrespondentëve të linjës',
+        'q18.b': 'Hartimin e një skeme marrëdhëniesh',
+        'q18.c': 'Listimin e të gjithë antenave të përdorura nga linja',
+        'q18.d': 'Identifikimin e IMEI-ve dhe periudhat e përdorimit të tyre',
+        'q19.title': 'Për të importuar të dhëna bankare duhet:',
+        'q19.a': 'Të importohet drejtpërdrejt skedari origjinal i bankës në PDF',
+        'q19.b': 'Të referohet llogaria bankare ose numri i kartës gjithmonë në të njëjtën mënyrë',
+        'q19.c': 'Të llogaritet numri i transaksioneve për çdo ekstrakt bankar për t’u importuar',
+        'q19.d': 'Të shoqërohen automatikisht me të dhëna telefonike',
+        'q20.title': 'Importi i metadatave mundëson:',
+        'q20.a': 'Shfaqjen e skedarëve imazh të nxjerrë nga një telefon celular',
+        'q20.b': 'Trajtimin e rezultateve të një ekstrakti të direktoriumit nga UFED Cellebrite',
+        'q20.c': 'Trajtimin e elementeve të përfshira në një raport PDF nga një softuer i palës së tretë (UFED, MSAB, etj.)',
+        'q20.d': 'Trajtimin e skedarëve audio të përgjimeve telefonike',
+      },
+      en: {
+        'page.title': 'Mercure V5 MCQ - Mobile',
+        'header.title': 'Mercure V5 Training',
+        'header.subtitle': 'Multiple Choice Questionnaire - Mobile Version',
+        'instructions.title': 'Instructions:',
+        'instructions.line1': 'This MCQ contains 20 questions. For each question, choose the correct answer.',
+        'instructions.line2': 'Click "Submit" at the end to view your score.',
+        'buttons.submit': 'Submit the MCQ',
+        'labels.score': 'Your Score: {score} / 20',
+        'labels.correct': 'Correct',
+        'labels.incorrect': 'Incorrect',
+        'labels.unanswered': 'Unanswered',
+        'labels.rightAnswer': 'The correct answer was: {ans}',
+        'messages.excellent': 'Excellent work! You have a perfect mastery of the subjects!',
+        'messages.verygood': 'Very good! Good understanding of the main concepts.',
+        'messages.ok': 'Acceptable score. Review the points that caused you trouble.',
+        'messages.retry': 'You must review the training to improve your score.',
+        'corrections.title': 'Detailed Corrections',
+        'q1.title': 'What does the non-contextual menu in Mercure allow?',
+        'q1.a': 'Merge cells in the display',
+        'q1.b': 'Perform searches on the entire database',
+        'q1.c': 'Merge requisitions',
+        'q1.d': 'Remove duplicates contained in a requisition',
+        'q2.title': 'What can be done with the workspace menus?',
+        'q2.a': 'Add/delete a procedure',
+        'q2.b': 'Change interface preferences',
+        'q2.c': 'Change the background color',
+        'q2.d': 'Create a keyboard shortcut',
+        'q3.title': 'In a procedure, the drop-down menu allows you to…',
+        'q3.a': 'Merge procedures',
+        'q3.b': 'Add folders or requisitions',
+        'q3.c': 'Copy requisitions',
+        'q3.d': 'Change preferences',
+        'q4.title': 'What actions are possible on a requisition?',
+        'q4.a': 'Remove, Destroy, Merge data',
+        'q4.b': 'Create a password',
+        'q4.c': 'Print the results of an analysis',
+        'q4.d': 'Create folders',
+        'q5.title': 'What are the direct actions offered by the workspace?',
+        'q5.a': 'Save preferences',
+        'q5.b': 'Group procedures/folders/requisitions',
+        'q5.c': 'Import communications',
+        'q5.d': 'Create folders',
+        'q6.title': 'What types of data can be imported?',
+        'q6.a': 'Telephony, banking, geolocation',
+        'q6.b': 'Photos',
+        'q6.c': 'Videos',
+        'q6.d': 'Audio',
+        'q7.title': 'Can requisitions be moved between folders?',
+        'q7.a': 'Yes',
+        'q7.b': 'No',
+        'q7.c': 'Only banking',
+        'q7.d': 'Only admin',
+        'q8.title': 'What format is most commonly used for import?',
+        'q8.a': 'PDF',
+        'q8.b': 'CSV',
+        'q8.c': 'DOC',
+        'q8.d': 'JPEG',
+        'q9.title': 'During an import, it is important to verify:',
+        'q9.a': 'The correspondence of columns',
+        'q9.b': 'The number of columns',
+        'q9.c': 'The number of rows',
+        'q9.d': 'The identities',
+        'q10.title': 'Does bulk import allow?',
+        'q10.a': 'To import multiple files at once',
+        'q10.b': 'To delete requisitions at once',
+        'q10.c': 'To automatically import a folder without verification',
+        'q10.d': 'To close multiple procedures',
+        'q11.title': 'Can a partially compatible operator file be adapted?',
+        'q11.a': 'Yes, by manual data mapping',
+        'q11.b': 'Yes, by automatic export',
+        'q11.c': 'Yes, by automatic renaming',
+        'q11.d': 'No',
+        'q12.title': 'What is a query used for in a requisition?',
+        'q12.a': 'To cross-reference data',
+        'q12.b': 'To create procedures',
+        'q12.c': 'To create folders',
+        'q12.d': 'To change the interface language',
+        'q13.title': 'What is the main menu for exploiting data between requisitions?',
+        'q13.a': 'The file menu',
+        'q13.b': 'The telephony menu',
+        'q13.c': 'The archive menu',
+        'q13.d': 'The table menu',
+        'q14.title': 'What is the result given by the frequency by number of communications query?',
+        'q14.a': 'The most used IMEIs per line',
+        'q14.b': 'The numbers of correspondents with whom there are the most communications by number of calls',
+        'q14.c': 'The numbers of correspondents with whom there are the most communications by duration',
+        'q14.d': 'The identification of a fleet of mobile numbers',
+        'q15.title': 'Can data from other cases be shared with different users in the single-user version?',
+        'q15.a': 'No, impossible without the server version',
+        'q15.b': 'Yes, by using the archive option',
+        'q15.c': 'Yes, with the sharing tab in the workspace',
+        'q15.d': 'Yes, with the copy tab',
+        'q16.title': 'Is it possible to search for common numbers between several lines?',
+        'q16.a': 'Yes, in the numbers menu',
+        'q16.b': 'Yes, in the communications menu',
+        'q16.c': 'No',
+        'q16.d': 'Yes, in the geocode menu',
+        'q17.title': 'What does the heat map allow in the graphic representation?',
+        'q17.a': 'To know the call frequency to a particular number',
+        'q17.b': 'To identify a correspondent common to another line',
+        'q17.c': 'To know the location where communications are densest',
+        'q17.d': 'To perform a search on the proximity of another line',
+        'q18.title': 'Does the fadet analysis report allow:',
+        'q18.a': 'To identify all correspondents of the line',
+        'q18.b': 'To create a relational diagram',
+        'q18.c': 'To list all telephone relays used by the line',
+        'q18.d': 'To identify IMEIs (mobile device serial numbers) and their period of use',
+        'q19.title': 'To import banking data, must you:',
+        'q19.a': 'Directly import the original PDF bank file',
+        'q19.b': 'Reference the bank account or bank card number always in the same way',
+        'q19.c': 'Calculate the number of transactions per bank statement to be imported',
+        'q19.d': 'Automatically associate them with telephony data',
+        'q20.title': 'Does metadata import allow:',
+        'q20.a': 'To display image files extracted from a mobile phone',
+        'q20.b': 'To process the result of a directory extraction made by software such as UFED cellebrite',
+        'q20.c': 'To process the elements contained in a PDF report from an extraction made by third-party software (UFED, MSAB..)',
+        'q20.d': 'To process audio files of wiretaps',
+      }
+    };
+    // Language switching
+    const setLang = (lang) => {
+      const available = Object.keys(I18N);
+      const safeLang = available.includes(lang) ? lang : 'fr';
+      const dict = I18N[safeLang];
+      document.documentElement.lang = safeLang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        let value = dict[key];
+        if (typeof value === 'string') el.textContent = value;
+      });
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === safeLang));
+      if (document.getElementById('results').style.display === 'block') { renderResults(lastScore);
+      }
+      document.title = dict['page.title'] || document.title;
+    };
+    const updateProgress = () => {
+      const total = 20;
+      let answered = 0;
+      for (let i = 1; i <= total; i++) {
+        if (document.querySelector(`input[name=q${i}]:checked`)) answered++;
+      }
+      document.getElementById('progress-bar').style.width = (answered / total) * 100 + '%';
+    };
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.name && e.target.name.startsWith('q')) updateProgress();
+    });
+    let lastScore = null;
+    function renderResults(score) {
+      const current = document.documentElement.lang || 'fr';
+      const t = I18N[current] || I18N['fr'];
+      const scoreEl = document.getElementById('score');
+      scoreEl.textContent = t['labels.score'].replace('{score}', score);
+      const msgEl = document.getElementById('score-message');
+      if (score >= 18) msgEl.textContent = t['messages.excellent'];
+      else if (score >= 15) msgEl.textContent = t['messages.verygood'];
+      else if (score >= 10) msgEl.textContent = t['messages.ok'];
+      else msgEl.textContent = t['messages.retry'];
+    }
+
+    document.getElementById('submit-btn').addEventListener('click', function(){
+      let score = 0;
+      const current = document.documentElement.lang || 'fr';
+      const t = I18N[current] || I18N['fr'];
+      let correctionsHTML = `<h3>${t['corrections.title']}</h3>`;
+
+      for (let i = 1; i <= 20; i++) {
+        const qName = 'q' + i;
+        const selected = document.querySelector(`input[name=${qName}]:checked`);
+        correctionsHTML += `<p><strong>Question ${i} :</strong> `;
+        if (selected) {
+          if (selected.value === correctAnswers[qName]) { score++; correctionsHTML += `<span class="correct">${t['labels.correct']}</span>`; }
+          else { correctionsHTML += `<span class="incorrect">${t['labels.incorrect']}</span>. ${t['labels.rightAnswer'].replace('{ans}', correctAnswers[qName])}`; }
+        } else {
+          correctionsHTML += `<span class="incorrect">${t['labels.unanswered']}</span>. ${t['labels.rightAnswer'].replace('{ans}', correctAnswers[qName])}`;
+        }
+        correctionsHTML += '</p>';
+      }
+
+      lastScore = score;
+      renderResults(score);
+      document.getElementById('corrections').innerHTML = correctionsHTML;
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    setLang('fr');
+  </script>
+</body>
+</html>

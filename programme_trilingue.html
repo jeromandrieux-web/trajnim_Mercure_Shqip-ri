@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title data-i18n="page_title">Programme de formation — Mercure_V5</title>
+  <style>
+    :root{
+      --mercure-blue: #228996;
+      --mercure-blue-dark: #154952;
+      --mercure-blue-mid: #2FA9B3;
+      --mercure-blue-soft: #E6F5F6;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #BFE5E8;
+      --bg-grad-1: #f7fbff;
+      --bg-grad-2: #eef7f8;
+      --focus: #0ea5b7;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body{
+      font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--ink);
+      line-height: 1.55;
+      background: linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
+      -webkit-text-size-adjust: 100%; /* iOS font zoom fix */
+    }
+
+    .container{
+      max-width: 920px;
+      margin: 28px auto 80px;
+      padding: 0 20px;
+    }
+
+    .card{
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(21,73,82,0.08);
+      padding: 22px 22px;
+    }
+
+    .header{
+      background: linear-gradient(135deg, var(--mercure-blue) 0%, var(--mercure-blue-dark) 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .header-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .logo{ font-size: 36px; }
+
+    .lang-switch{ display: flex; gap: 10px; }
+
+    .lang-btn{
+      -webkit-tap-highlight-color: transparent;
+      appearance: none;
+      background: rgba(255,255,255,0.18);
+      border: 2px solid transparent;
+      color: white;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      letter-spacing: .2px;
+    }
+    .lang-btn:hover{ background: rgba(255,255,255,0.28); }
+    .lang-btn:focus-visible{
+      outline: none;
+      border-color: #fff;
+      box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 0 0 6px var(--focus);
+    }
+    .lang-btn.active{
+      background: white;
+      color: var(--mercure-blue-dark);
+    }
+
+    .title{
+      margin: 0 0 6px 0;
+      font-weight: 900;
+      font-size: clamp(22px, 4.2vw, 30px);
+      letter-spacing: 0.2px;
+    }
+    .subtitle{
+      margin: 0;
+      font-size: clamp(13px, 2.5vw, 14px);
+      opacity: 0.95;
+      font-weight: 600;
+    }
+
+    h2{
+      color: var(--mercure-blue-dark);
+      font-size: clamp(20px, 3.8vw, 26px);
+      font-weight: 900;
+      margin: 30px 0 14px;
+      background: linear-gradient(90deg, var(--mercure-blue-soft) 0%, transparent 70%);
+      border-left: 8px solid var(--mercure-blue-mid);
+      padding: 10px 12px;
+      border-radius: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    .plan h2{
+      background: none;
+      border-left: none;
+      padding: 0;
+      font-size: 18px;
+      font-weight: 800;
+      margin: 12px 0 8px;
+    }
+
+    h3{
+      color: var(--mercure-blue-dark);
+      font-size: clamp(18px, 3.6vw, 20px);
+      font-weight: 800;
+      margin: 18px 0 10px;
+      background: var(--mercure-blue-soft);
+      border-left: 6px solid var(--mercure-blue);
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    .accent{ color: var(--mercure-blue); font-weight: 900; }
+    .muted{ color: var(--muted); }
+    .indent{ margin-left: 22px; }
+    .indent-lg{ margin-left: 36px; }
+    .bullet{ margin: 0; padding-left: 20px; }
+    .bullet li{ margin: 4px 0; }
+    .bullet li::marker{ color: var(--mercure-blue-mid); font-weight: 900; }
+
+    .callout{
+      background: var(--mercure-blue-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 10px 0 16px;
+    }
+
+    .pause{ 
+      display:inline-block;
+      color: var(--mercure-blue-dark); 
+      font-weight: 900; 
+      margin: 12px 0; 
+      font-size: 16px;
+      background: var(--mercure-blue-soft);
+      border: 2px solid var(--mercure-blue-mid);
+      border-radius: 999px;
+      padding: 10px 14px;
+    }
+    .time{ 
+      display:inline-block; 
+      font-size: 12px; 
+      font-weight: 900; 
+      color: var(--mercure-blue-dark);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:2px 8px;
+      margin-left: 6px;
+    }
+
+    .plan.card{ font-size: 0.96rem; padding: 18px 20px; }
+    .plan .bullet li{ margin: 2px 0; }
+    .plan p{ font-size: 0.93rem; }
+
+    .card .indent p > strong,
+    .card > p > strong{
+      display:block;
+      font-weight: 900;
+      color: var(--mercure-blue-dark);
+      margin: 10px 0 4px 14px;
+      padding: 8px 12px;
+      font-size: 1.05rem;
+      background: #F4FBFC;
+      border-left: 5px solid var(--mercure-blue-mid);
+      border-radius: 10px;
+    }
+
+    .card p em{
+      background: var(--mercure-blue-soft);
+      color: var(--mercure-blue-dark);
+      font-style: normal;
+      font-weight: 900;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      font-size: 12px;
+      padding: 3px 10px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      display:inline-block;
+      margin: 4px 0 6px 16px;
+    }
+
+    @media print{
+      body{ background: #fff; }
+      .container{ margin: 0 auto; }
+      .header, .pause, h2, h3{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-break{ page-break-before: always; }
+    }
+
+    /* Mobile refinements */
+    @media (max-width: 768px){
+      .container{ padding: 0 14px; }
+      .header{ text-align: center; padding: 20px; }
+      .header-top{ flex-direction: column; gap: 14px; }
+      .lang-switch{ justify-content: center; }
+      .indent, .indent-lg{ margin-left: 16px; }
+      .card{ padding: 18px; }
+      .pause{ font-size: 15px; }
+      .time{ font-size: 11px; }
+      .logo{ font-size: 32px; }
+      .lang-btn{ padding: 10px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-top">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="lang-switch" role="group" aria-label="Sélection de la langue">
+          <button type="button" class="lang-btn active" data-lang="fr" aria-pressed="true">🇫🇷 FR</button>
+          <button type="button" class="lang-btn" data-lang="sq" aria-pressed="false">🇦🇱 SQ</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">🇬🇧 EN</button>
+        </div>
+      </div>
+      <h1 class="title" data-i18n="title">Programme de formation — Mercure_V5</h1>
+      <p class="subtitle" data-i18n="subtitle">Parcours en 3 jours — fondamentaux, analyse et restitution</p>
+    </div>
+
+    <div class="card plan">
+      <ul class="bullet">
+        <li><strong data-i18n="plan1">Découverte</strong> <span data-i18n="plan1_desc">de l'outil et de son organisation.</span></li>
+        <li><strong data-i18n="plan2">Acquisition</strong> <span data-i18n="plan2_desc">des données (Import).</span></li>
+        <li><strong data-i18n="plan3">Exploitation et Analyse</strong> <span data-i18n="plan3_desc">(Requêtes, Visualisation).</span></li>
+        <li><strong data-i18n="plan4">Spécialisation</strong> <span data-i18n="plan4_desc">(Données financières/IP) et Optimisation.</span></li>
+        <li><strong data-i18n="plan5">Restitution</strong> <span data-i18n="plan5_desc">et Clôture du processus.</span></li>
+      </ul>
+      <p class="muted" style="margin-top:8px" data-i18n="plan_note">Chaque module alterne <strong>théorie</strong> (contenu des fiches) et <strong>pratique</strong> (démonstrations et exercices guidés) pour favoriser l’assimilation.</p>
+    </div>
+
+    <!-- JOUR 1 -->
+    <h2 data-i18n="day1">🚀 JOUR 1 – Mardi 7 octobre : FONDAMENTAUX &amp; PRISE EN MAIN</h2>
+
+    <div class="card">
+      <h3 data-i18n="module1">🎯 Module 1 : Introduction &amp; Découverte de l'Environnement <span class="time">09h00–10h25</span></h3>
+      <div class="indent">
+        <p><strong data-i18n="m1_p1">09h00–09h15 — Présentation du programme</strong></p>
+        <p class="indent" data-i18n="m1_p1_desc">Objectifs de la formation, public cible, résultats attendus.</p>
+
+        <p><strong data-i18n="m1_p2">09h15–09h30 — Test initial</strong></p>
+        <p class="indent" data-i18n="m1_p2_desc">Évaluation rapide des connaissances de base des stagiaires.</p>
+
+        <p><strong data-i18n="m1_p3">09h30–10h25 — Menu non contextuel (référentiel) &amp; menu contextuel</strong></p>
+        <p><em data-i18n="theory_m1">Théorie (Fiche 1) : 🧠</em></p>
+        <ul class="bullet indent">
+          <li data-i18n="m1_t1">Présentation de l'interface : fenêtre principale, zones, barre d'état, centre de notifications.</li>
+          <li data-i18n="m1_t2">Différence entre les trois types de menus : non contextuel (global), contextuel (clic droit), pop-up (analyse).</li>
+          <li data-i18n="m1_t3">Détail des menus principaux non contextuels (Fichier, Identités, Téléphonie, LAPI, Financier, IP, Multi-entités, Requêtes, Aide).</li>
+          <li data-i18n="m1_t4">Importance de la nomenclature MCC/MNC (Aide) (ex : 276 = Albanie - 01 = ALBtelecom).</li>
+        </ul>
+        <p><em data-i18n="practice_demo">Pratique/Démonstration : 👀</em></p>
+        <ul class="bullet indent">
+          <li data-i18n="m1_p4">Navigation dans l'interface.</li>
+          <li data-i18n="m1_p5">Utilisation de la recherche instantanée dans la barre d'état.</li>
+          <li data-i18n="m1_p6">Exploration des menus principaux et observation des options disponibles en fonction des droits.</li>
+        </ul>
+      </div>
+      <p class="pause" data-i18n="pause1">☕️ Pause-café <span class="time">10h25–10h35</span></p>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="card">
+      <h3 data-i18n="module2">🎯 Module 2 : Organisation des Données &amp; Procédures <span class="time">10h35–12h00</span></h3>
+      <p><em data-i18n="theory_m2">Théorie (Fiche 1.4 &amp; 1.5) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m2_t1">Structure hiérarchique des données : Base → Espaces de travail → Procédures → Dossiers → Réquisitions.</li>
+        <li data-i18n="m2_t2">Bonnes pratiques : Nommage explicite, organisation par affaire/type de données, utilisation des vues sauvegardées.</li>
+        <li data-i18n="m2_t3">Gestion des Préférences (Fichier &gt; Préférences) : Général, Affichage, Import/Export, Cartographie, Réseau.</li>
+      </ul>
+      <p><em data-i18n="practice_demo">Pratique/Démonstration : 👀</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m2_p1">Création d'un premier espace de travail et d'une procédure.</li>
+        <li data-i18n="m2_p2">Configuration de préférences de base (fuseau horaire, formats de date).</li>
+        <li data-i18n="m2_p3">Exercice de nommage clair et structuré.</li>
+      </ul>
+      <p class="pause" data-i18n="pause2">🍔 Pause déjeuner <span class="time">12h00–13h00</span></p>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="card">
+      <h3 data-i18n="module3">🎯 Module 3 : Typologie des Données &amp; Principes d'Import <span class="time">13h00–14h25</span></h3>
+      <p><em data-i18n="theory_m3">Théorie (Fiche 2 &amp; 3) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m3_t1"><strong>Identifier (Fiche 2)</strong> : Panorama des données intégrables (Identités, Communications, Événements, Enregistrements, Relais). Focus sur la nécessité de validation/croisement des identités.</li>
+        <li data-i18n="m3_t2"><strong>Intégrer (Fiche 3)</strong> : Vue d'ensemble des modes d'import (manuel vs. automatique). Concepts de base du mapping.</li>
+      </ul>
+      <p><em data-i18n="practice_demo">Pratique/Démonstration : 👀</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m3_p1">Création manuelle d'une identité et d'une liste de numéros.</li>
+        <li data-i18n="m3_p2">Présentation des différents formats de fichiers sources.</li>
+      </ul>
+      <p class="pause" data-i18n="pause3">☕️ Pause-café <span class="time">14h25–14h35</span></p>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="card">
+      <h3 data-i18n="module4">🎯 Module 4 : Méthodologie d'Import <span class="time">14h35–16h00</span></h3>
+      <p><em data-i18n="theory_m4">Théorie (Fiche 3.2) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m4_t1">Processus détaillé d'import : format reconnu vs. format à mapper.</li>
+        <li data-i18n="m4_t2">Points de vigilance : Formats de date, en-têtes, numéros ambigus, rôle abonné/correspondant.</li>
+        <li data-i18n="m4_t3">Astuce : Création de gabarits de mapping pour les imports récurrents.</li>
+      </ul>
+      <p><em data-i18n="practice_demo">Pratique/Démonstration : 👀</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m4_p1">Import simple d'un fichier de type "fadette" (format reconnu).</li>
+        <li data-i18n="m4_p2">Démonstration du processus de mapping sur un fichier fictif non formaté.</li>
+      </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- JOUR 2 -->
+    <h2 data-i18n="day2">🛤️ JOUR 2 – Mercredi 8 octobre : ANALYSE &amp; EXPLOITATION</h2>
+
+    <!-- Module 5 -->
+    <div class="card">
+      <h3 data-i18n="module5">🎯 Module 5 : Requêtes Fondamentales <span class="time">09h00–12h00</span></h3>
+      <p><strong data-i18n="m5_p1">09h00–10h25 — Requêtes (partie 1)</strong></p>
+      <p><em data-i18n="theory_m5a">Théorie (Fiche 4.3) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m5_t1">Principe des requêtes dans Mercure.</li>
+        <li data-i18n="m5_t2">Recherches de base : par valeur, texte, plage calendaire.</li>
+        <li data-i18n="m5_t3">Requêtes de corrélation "Commun" (mise en relation simple de réquisitions).</li>
+      </ul>
+      <p><em data-i18n="practice_only">Pratique :</em> <span data-i18n="m5_p2">Lancement de recherches simples et de premières corrélations sur les données importées la veille.</span></p>
+      <p class="pause" data-i18n="pause4">☕️ Pause-café <span class="time">10h25–10h35</span></p>
+
+      <p><strong data-i18n="m5_p3">10h35–12h00 — Requêtes (partie 2)</strong></p>
+      <p><em data-i18n="theory_m5b">Théorie (Fiche 4.3 &amp; 4.4) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m5_t4">Requêtes de corrélation "Avancée" (avec prise en compte des rôles).</li>
+        <li data-i18n="m5_t5">Requêtes "Proximité" (rayon).</li>
+        <li data-i18n="m5_t6">Requêtes "Point de Rencontre/Éloignement" (simple et avancée).</li>
+        <li data-i18n="m5_t7">Requêtes "Fréquences &amp; Flottes".</li>
+      </ul>
+      <p><em data-i18n="practice_only">Pratique :</em> <span data-i18n="m5_p4">Mise en application sur des cas concrets. Comparaison des résultats entre une corrélation "Commun" et "Avancée".</span></p>
+      <p class="pause" data-i18n="pause5">🍔 Pause déjeuner <span class="time">12h00–13h00</span></p>
+    </div>
+
+    <!-- Module 6 -->
+    <div class="card">
+      <h3 data-i18n="module6">🎯 Module 6 : Interprétation &amp; Visualisation <span class="time">13h00–15h30</span></h3>
+      <p><strong data-i18n="m6_p1">13h00–14h25 — Exécution des requêtes &amp; interprétation analytique des résultats</strong></p>
+      <p><em data-i18n="practice_guided">Pratique Guidée : 🛤️</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m6_p2">Analyse des résultats obtenus le matin.</li>
+        <li data-i18n="m6_p3">Méthodologie d'interprétation : validation des hypothèses, croisement des sources, identification des faux positifs.</li>
+        <li data-i18n="m6_p4">Bonnes pratiques : Vérifier le rôle, la période, la source. 👍🏻</li>
+      </ul>
+
+      <p class="pause" data-i18n="pause6">☕️ Pause-café <span class="time">14h25–14h35</span></p>
+
+      <p><strong data-i18n="m6_p5">14h35–15h30 — Représentations graphiques &amp; cartographiques</strong></p>
+      <p><em data-i18n="theory_m6">Théorie (Fiche 4.1) : 🧠</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m6_t1">Modes de visualisation : Tableaux (tri, filtres, vues), Graphes (communications, entourage), Cartes (heat map, agrégations, points de rencontre).</li>
+      </ul>
+      <div class="callout"><strong>💡 <span data-i18n="tip">Astuce :</span></strong> <span data-i18n="m6_tip">Combiner les vues pour une analyse multi-angles.</span></div>
+      <p><em data-i18n="practice_only">Pratique :</em> <span data-i18n="m6_p6">Génération de graphes et de cartes à partir des résultats de requêtes. Interaction entre les vues.</span></p>
+
+      <p class="pause" data-i18n="pause7">☕️ Pause-café <span class="time">15h30–15h45</span></p>
+    </div>
+
+    <!-- Module 7 -->
+    <div class="card">
+      <h3 data-i18n="module7">🎯 Module 7 : Synthèse des Résultats <span class="time">15h45–16h00</span></h3>
+      <p><em data-i18n="practice_only">Pratique (Fiche 5 &amp; Pratique 4) :</em></p>
+      <ul class="bullet indent">
+        <li data-i18n="m7_p1">Sauvegarde des résultats d'analyse : création de listes et de réquisitions pertinentes.</li>
+        <li data-i18n="m7_p2">Organisation dans un dossier "Résultats" avec un nommage explicite.</li>
+      </ul>
+    </div>
+
+    <!-- JOUR 3 -->
+    <h2 data-i18n="day3">🚨 JOUR 3 – Jeudi 9 octobre : DONNÉES COMPLEXES, FONCTIONS AVANCÉES &amp; CLÔTURE</h2>
+
+    <!-- Module 8 -->
+    <div class="card">
+      <h3 data-i18n="module8">🎯 Module 8 : Intégration de Données Spécialisées <span class="time">09h00–12h00</span></h3>
+      <p><strong data-i18n="m8_p1">09h00–10h25 — Intégration des données financières 💵</strong></p>
+      <p><em data-i18n="theory_m8a">Théorie (Fiche 2.4) : 🧠</em> <span data-i18n="m8_t1">Spécificités des données financières (comptes, opérations).</span></p>
+      <p><em data-i18n="practice_only">Pratique :</em> <span data-i18n="m8_p2">Import et mapping d'un fichier d'opérations bancaires. Recherche et corrélation avec d'autres données (ex: identités, LAPI). 🕵🏼‍♂️</span></p>
+      <p class="pause" data-i18n="pause8">☕️ Pause-café <span class="time">10h25–10h35</span></p>
+
+      <p><strong data-i18n="m8_p3">10h35–12h00 — Intégration des métadonnées</strong></p>
+      <p><em data-i18n="theory_m8b">Théorie (Fiche 2.5) : 🧠</em> <span data-i18n="m8_t2">Spécificités des données IP (adresses, logs). 🧠</span></p>
+         
+      <p class="pause" data-i18n="pause9">🍔 Pause déjeuner <span class="time">12h00–13h00</span></p>
+    </div>
+
+    <!-- Module 9 -->
+    <div class="card">
+      <h3 data-i18n="module9">🎯 Module 9 : Optimisation &amp; Fonctions Critiques <span class="time">13h00–14h25</span></h3>
+      <p><em data-i18n="theory_practice">Théorie et Pratique (Fiches 4 &amp; 5) :</em></p>
+      <ul class="bullet indent">
+        <li><strong data-i18n="m9_title">Fonctions opérationnelles critiques :</strong></li>
+      </ul>
+      <ul class="bullet indent-lg">
+        <li data-i18n="m9_p1">Ré-utilisation de l'historique des requêtes.</li>
+        <li data-i18n="m9_p2">Gestion des listes de sélection et d'exclusion.</li>
+        <li data-i18n="m9_p3">Gestion des doublons techniques (Pratique/ Fiche 5.2).</li>
+        <li data-i18n="m9_p4">Études de cas concrets tirés des Fiches Pratiques (ex: Pratique 2 "1 MSISDN ⇒ N IMEI", Pratique 3 "Deux puces, une personne ?", Pratique 5 "Véhicules d'intérêt").</li>
+        <li data-i18n="m9_p5">Méthodologie pour définir des centres d'intérêt géographiques (Pratique 6).</li>
+      </ul>
+      <p class="pause" data-i18n="pause10">☕️ Pause-café <span class="time">14h25–14h35</span></p>
+    </div>
+
+    <!-- Module 10 -->
+    <div class="card">
+      <h3 data-i18n="module10">🎯 Module 10 : Restitution, Archivage &amp; Évaluation <span class="time">14h35–16h00</span></h3>
+      <p><strong data-i18n="m10_p1">14h35–15h30 — Questions-réponses</strong></p>
+      <ul class="bullet indent">
+        <li data-i18n="m10_p2">Session dédiée aux questions des stagiaires sur l'ensemble de la formation.</li>
+        <li data-i18n="m10_p3">Retour sur des points bloquants ou complexes.</li>
+      </ul>
+      <p><strong data-i18n="m10_p4">15h30–16h00 — Test final &amp; retour d'évaluation 🧩</strong></p>
+      <ul class="bullet indent">
+        <li><strong data-i18n="m10_p5">Test final :</strong> <span data-i18n="m10_p6">Évaluation des acquis sous forme de QCM ou de mini-cas pratique.</span></li>
+        <li><strong data-i18n="m10_p7">Restitution (Fiche 5.1) :</strong> <span data-i18n="m10_p8">Présentation rapide des fonctions d'export (Excel, KML, rapports PDF) et des bonnes pratiques de clôture (Fiche 5.3 - Archivage, vérification, contrôle des permissions).</span></li>
+        <li><strong data-i18n="m10_p9">Retour d'évaluation :</strong> <span data-i18n="m10_p10">Recueil des impressions sur la formation.</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    // Internationalization dictionary
+    const I18N = {
+      fr: {
+        page_title: "Programme de formation — Mercure_V5",
+        title: "📘 Programme de formation — Mercure_V5",
+        subtitle: "Parcours en 3 jours — fondamentaux, analyse et restitution",
+        plan1: "Découverte",
+        plan1_desc: "de l'outil et de son organisation.",
+        plan2: "Acquisition",
+        plan2_desc: "des données (Import).",
+        plan3: "Exploitation et Analyse",
+        plan3_desc: "(Requêtes, Visualisation).",
+        plan4: "Spécialisation",
+        plan4_desc: "(Données financières/IP) et Optimisation.",
+        plan5: "Restitution",
+        plan5_desc: "et Clôture du processus.",
+        plan_note: "Chaque module alterne <strong>théorie</strong> (contenu des fiches) et <strong>pratique</strong> (démonstrations et exercices guidés) pour favoriser l'assimilation.",
+        day1: "🚀 JOUR 1 – Mardi 7 octobre : FONDAMENTAUX & PRISE EN MAIN",
+        module1: "🎯 Module 1 : Introduction & Découverte de l'Environnement",
+        m1_p1: "09h00–09h15 — Présentation du programme",
+        m1_p1_desc: "Objectifs de la formation, public cible, résultats attendus.",
+        m1_p2: "09h15–09h30 — Test initial",
+        m1_p2_desc: "Évaluation rapide des connaissances de base des stagiaires.",
+        m1_p3: "09h30–10h25 — Menu non contextuel (référentiel) & menu contextuel",
+        theory_m1: "Théorie (Fiche 1) : 🧠",
+        m1_t1: "Présentation de l'interface : fenêtre principale, zones, barre d'état, centre de notifications.",
+        m1_t2: "Différence entre les trois types de menus : non contextuel (global), contextuel (clic droit), pop-up (analyse).",
+        m1_t3: "Détail des menus principaux non contextuels (Fichier, Identités, Téléphonie, LAPI, Financier, IP, Multi-entités, Requêtes, Aide).",
+        m1_t4: "Importance de la nomenclature MCC/MNC (Aide) (ex : 276 = Albanie - 01 = ALBtelecom).",
+        practice_demo: "Pratique/Démonstration : 👀",
+        practice_only: "Pratique :",
+        pause1: "☕️ Pause-café",
+        module2: "🎯 Module 2 : Organisation des Données & Procédures",
+        theory_m2: "Théorie (Fiche 1.4 & 1.5) : 🧠",
+        m2_t1: "Structure hiérarchique des données : Base → Espaces de travail → Procédures → Dossiers → Réquisitions.",
+        m2_t2: "Bonnes pratiques : Nommage explicite, organisation par affaire/type de données, utilisation des vues sauvegardées.",
+        m2_t3: "Gestion des Préférences (Fichier > Préférences) : Général, Affichage, Import/Export, Cartographie, Réseau.",
+        m2_p1: "Création d'un premier espace de travail et d'une procédure.",
+        m2_p2: "Configuration de préférences de base (fuseau horaire, formats de date).",
+        m2_p3: "Exercice de nommage clair et structuré.",
+        pause2: "🍔 Pause déjeuner",
+        module3: "🎯 Module 3 : Typologie des Données & Principes d'Import",
+        theory_m3: "Théorie (Fiche 2 & 3) : 🧠",
+        m3_t1: "<strong>Identifier (Fiche 2)</strong> : Panorama des données intégrables (Identités, Communications, Événements, Enregistrements, Relais). Focus sur la nécessité de validation/croisement des identités.",
+        m3_t2: "<strong>Intégrer (Fiche 3)</strong> : Vue d'ensemble des modes d'import (manuel vs. automatique). Concepts de base du mapping.",
+        m3_p1: "Création manuelle d'une identité et d'une liste de numéros.",
+        m3_p2: "Présentation des différents formats de fichiers sources.",
+        pause3: "☕️ Pause-café",
+        module4: "🎯 Module 4 : Méthodologie d'Import",
+        theory_m4: "Théorie (Fiche 3.2) : 🧠",
+        m4_t1: "Processus détaillé d'import : format reconnu vs. format à mapper.",
+        m4_t2: "Points de vigilance : Formats de date, en-têtes, numéros ambigus, rôle abonné/correspondant.",
+        m4_t3: "Astuce : Création de gabarits de mapping pour les imports récurrents.",
+        m4_p1: "Import simple d'un fichier de type \"fadette\" (format reconnu).",
+        m4_p2: "Démonstration du processus de mapping sur un fichier fictif non formaté.",
+        day2: "🛤️ JOUR 2 – Mercredi 8 octobre : ANALYSE & EXPLOITATION",
+        module5: "🎯 Module 5 : Requêtes Fondamentales",
+        m5_p1: "09h00–10h25 — Requêtes (partie 1)",
+        theory_m5a: "Théorie (Fiche 4.3) : 🧠",
+        m5_t1: "Principe des requêtes dans Mercure.",
+        m5_t2: "Recherches de base : par valeur, texte, plage calendaire.",
+        m5_t3: "Requêtes de corrélation \"Commun\" (mise en relation simple de réquisitions).",
+        m5_p2: "Lancement de recherches simples et de premières corrélations sur les données importées la veille.",
+        pause4: "☕️ Pause-café",
+        m5_p3: "10h35–12h00 — Requêtes (partie 2)",
+        theory_m5b: "Théorie (Fiche 4.3 & 4.4) : 🧠",
+        m5_t4: "Requêtes de corrélation \"Avancée\" (avec prise en compte des rôles).",
+        m5_t5: "Requêtes \"Proximité\" (rayon).",
+        m5_t6: "Requêtes \"Point de Rencontre/Éloignement\" (simple et avancée).",
+        m5_t7: "Requêtes \"Fréquences & Flottes\".",
+        m5_p4: "Mise en application sur des cas concrets. Comparaison des résultats entre une corrélation \"Commun\" et \"Avancée\".",
+        pause5: "🍔 Pause déjeuner",
+        module6: "🎯 Module 6 : Interprétation & Visualisation",
+        m6_p1: "13h00–14h25 — Exécution des requêtes & interprétation analytique des résultats",
+        practice_guided: "Pratique Guidée : 🛤️",
+        m6_p2: "Analyse des résultats obtenus le matin.",
+        m6_p3: "Méthodologie d'interprétation : validation des hypothèses, croisement des sources, identification des faux positifs.",
+        m6_p4: "Bonnes pratiques : Vérifier le rôle, la période, la source. 👍🏻",
+        pause6: "☕️ Pause-café",
+        m6_p5: "14h35–15h30 — Représentations graphiques & cartographiques",
+        theory_m6: "Théorie (Fiche 4.1) : 🧠",
+        m6_t1: "Modes de visualisation : Tableaux (tri, filtres, vues), Graphes (communications, entourage), Cartes (heat map, agrégations, points de rencontre).",
+        tip: "Astuce :",
+        m6_tip: "Combiner les vues pour une analyse multi-angles.",
+        m6_p6: "Génération de graphes et de cartes à partir des résultats de requêtes. Interaction entre les vues.",
+        pause7: "☕️ Pause-café",
+        module7: "🎯 Module 7 : Synthèse des Résultats",
+        m7_p1: "Sauvegarde des résultats d'analyse : création de listes et de réquisitions pertinentes.",
+        m7_p2: "Organisation dans un dossier \"Résultats\" avec un nommage explicite.",
+        day3: "🚨 JOUR 3 – Jeudi 9 octobre : DONNÉES COMPLEXES, FONCTIONS AVANCÉES & CLÔTURE",
+        module8: "🎯 Module 8 : Intégration de Données Spécialisées",
+        m8_p1: "09h00–10h25 — Intégration des données financières 💵",
+        theory_m8a: "Théorie (Fiche 2.4) : 🧠",
+        m8_t1: "Spécificités des données financières (comptes, opérations).",
+        m8_p2: "Import et mapping d'un fichier d'opérations bancaires. Recherche et corrélation avec d'autres données (ex: identités, LAPI). 🕵🏼‍♂️",
+        pause8: "☕️ Pause-café",
+        m8_p3: "10h35–12h00 — Intégration des métadonnées",
+        theory_m8b: "Théorie (Fiche 2.5) : 🧠",
+        m8_t2: "Spécificités des données IP (adresses, logs). 🧠",
+        pause9: "🍔 Pause déjeuner",
+        module9: "🎯 Module 9 : Optimisation & Fonctions Critiques",
+        theory_practice: "Théorie et Pratique (Fiches 4 & 5) :",
+        m9_title: "Fonctions opérationnelles critiques :",
+        m9_p1: "Ré-utilisation de l'historique des requêtes.",
+        m9_p2: "Gestion des listes de sélection et d'exclusion.",
+        m9_p3: "Gestion des doublons techniques (Pratique/ Fiche 5.2).",
+        m9_p4: "Études de cas concrets tirés des Fiches Pratiques (ex: Pratique 2 \"1 MSISDN ⇒ N IMEI\", Pratique 3 \"Deux puces, une personne ?\", Pratique 5 \"Véhicules d'intérêt\").",
+        m9_p5: "Méthodologie pour définir des centres d'intérêt géographiques (Pratique 6).",
+        pause10: "☕️ Pause-café",
+        module10: "🎯 Module 10 : Restitution, Archivage & Évaluation",
+        m10_p1: "14h35–15h30 — Questions-réponses",
+        m10_p2: "Session dédiée aux questions des stagiaires sur l'ensemble de la formation.",
+        m10_p3: "Retour sur des points bloquants ou complexes.",
+        m10_p4: "15h30–16h00 — Test final & retour d'évaluation 🧩",
+        m10_p5: "Test final :",
+        m10_p6: "Évaluation des acquis sous forme de QCM ou de mini-cas pratique.",
+        m10_p7: "Restitution (Fiche 5.1) :",
+        m10_p8: "Présentation rapide des fonctions d'export (Excel, KML, rapports PDF) et des bonnes pratiques de clôture (Fiche 5.3 - Archivage, vérification, contrôle des permissions).",
+        m10_p9: "Retour d'évaluation :",
+        m10_p10: "Recueil des impressions sur la formation."
+      },
+      sq: {
+       page_title: "Programi i trajnimit — Mercure_V5",
+        title: "📘 Programi i trajnimit — Mercure_V5",
+        subtitle: "Rrugëtim 3‑ditor — bazat, analiza dhe përmbledhja",
+        plan1: "Zbulimi",
+        plan1_desc: "i mjetit dhe organizimit të tij.",
+        plan2: "Marrja",
+        plan2_desc: "e të dhënave (Importi).",
+        plan3: "Shfrytëzimi dhe Analiza",
+        plan3_desc: "(Kërkesa, Vizualizimi).",
+        plan4: "Specializimi",
+        plan4_desc: "(të dhëna financiare/IP) dhe Optimizimi.",
+        plan5: "Raportimi",
+        plan5_desc: "dhe Mbyllja e procesit.",
+        plan_note: "Çdo modul ndërthur <strong>teorinë</strong> (përmbajtja e fletëve) dhe <strong>praktikën</strong> (demonstrime dhe ushtrime të udhëzuara) për të nxitur përthithjen.",
+        day1: "🚀 DITA 1 – E martë, 7 tetor: BAZAT & PËRDORIMI FILLIMTAR",
+        module1: "🎯 Moduli 1: Hyrje & Zbulimi i Mjedisit",
+        m1_p1: "09h00–09h15 — Paraqitja e programit",
+        m1_p1_desc: "Qëllimet e trajnimit, audience synuar, rezultatet e pritshme.",
+        m1_p2: "09h15–09h30 — Test fillestar",
+        m1_p2_desc: "Vlerësim i shpejtë i njohurive bazë të pjesëmarrësve.",
+        m1_p3: "09h30–10h25 — Menyja jo‑kontekstuale (referenciale) & menyja kontekstuale",
+        theory_m1: "Teori (Fleta 1): 🧠",
+        m1_t1: "Paraqitja e ndërfaqes: dritarja kryesore, zonat, shiriti i statusit, qendra e njoftimeve.",
+        m1_t2: "Dallimi mes tre llojeve të menusë: jo‑kontekstuale (globale), kontekstuale (klikim i djathtë), pop‑up (analizë).",
+        m1_t3: "Detaje të menyrave kryesore jo‑kontekstuale (Skedar, Identitete, Telefonia, LAPI, Financiare, IP, Shumë‑entitetëshe, Kërkesa, Ndihmë).",
+        m1_t4: "Rëndësia e nomenklaturës MCC/MNC (Ndihmë) (p.sh.: 276 = Shqipëri — 01 = ALBtelecom).",
+        practice_demo: "Praktikë/Demonstrim: 👀",
+        practice_only: "Praktikë:",
+        pause1: "☕️ Pushim kafeje",
+        module2: "🎯 Moduli 2: Organizimi i të Dhënave & Procedurave",
+        theory_m2: "Teori (Fleta 1.4 & 1.5): 🧠",
+        m2_t1: "Struktura hierarkike e të dhënave: Bazë → Hapësira pune → Procedura → Dosje → Kërkesa.",
+        m2_t2: "Praktika të mira: emërtim i qartë, organizim sipas çështjes/lloje të dhënash, përdorim i pamjeve të ruajtura.",
+        m2_t3: "Menaxhimi i Preferencave (Skedar > Preferenca): e përgjithshme, paraqitja, import/eksport, hartografia, rrjeti.",
+        m2_p1: "Krijimi i një hapësire të parë pune dhe i një procedure.",
+        m2_p2: "Konfigurimi bazë (brezi orar, formatet e datës).",
+        m2_p3: "Ushtrim emërtimi i qartë dhe i strukturuar.",
+        pause2: "🍔 Pushim dreke",
+        module3: "🎯 Moduli 3: Tipologjia e të Dhënave & Parimet e Importit",
+        theory_m3: "Teori (Fleta 2 & 3): 🧠",
+        m3_t1: "<strong>Identifikimi (Fleta 2)</strong>: Panorama e të dhënave të integrueshme (Identitete, Komunikime, Ngjarje, Regjistrime, Antena). Theks tek nevoja për verifikim/krahasim të identiteteve.",
+        m3_t2: "<strong>Integrimi (Fleta 3)</strong>: Pasqyrë e mënyrave të importit (manual vs. automatik). Koncepte bazë të hartezimit.",
+        m3_p1: "Krijim manual i një identiteti dhe i një liste numrash.",
+        m3_p2: "Paraqitje e formateve të ndryshme të skedarëve burim.",
+        pause3: "☕️ Pushim kafeje",
+        module4: "🎯 Moduli 4: Metodologjia e Importit",
+        theory_m4: "Teori (Fleta 3.2): 🧠",
+        m4_t1: "Proces i detajuar importi: format i njohur vs. format për t'u hartëzuar.",
+        m4_t2: "Pika kujdesi: formatet e datës, kokat, numrat e paqartë, roli abonent/korrespondent.",
+        m4_t3: "Këshillë: krijimi i shablloneve të hartëzimit për importe të përsëritura.",
+        m4_p1: "Import i thjeshtë i një skedari \"faturë e detajuar\" (format i njohur).",
+        m4_p2: "Demonstrim i hartëzimit në një skedar fiktiv të paformatuar.",
+        day2: "🛤️ DITA 2 – E mërkurë, 8 tetor: ANALIZË & SHFRYTËZIM",
+        module5: "🎯 Moduli 5: Kërkesa Themelore",
+        m5_p1: "09h00–10h25 — Kërkesa (pjesa 1)",
+        theory_m5a: "Teori (Fleta 4.3): 🧠",
+        m5_t1: "Parimi i kërkesave në Mercure.",
+        m5_t2: "Kërkesa bazë: sipas vlere, teksti, intervaleve kohore.",
+        m5_t3: "Kërkesa korrelacioni \"i zakonshëm\" (lidhje e thjeshtë midis kërkesave).",
+        m5_p2: "Nisja e kërkesave të thjeshta dhe korrelacioneve të para mbi të dhënat e importuara një ditë më parë.",
+        pause4: "☕️ Pushim kafeje",
+        m5_p3: "10h35–12h00 — Kërkesa (pjesa 2)",
+        theory_m5b: "Teori (Fleta 4.3 & 4.4): 🧠",
+        m5_t4: "Kërkesa korrelacioni \"e avancuar\" (duke marrë parasysh rolet).",
+        m5_t5: "Kërkesa \"Afërsia\" (rrezja).",
+        m5_t6: "\"Pikë Takimi/Largimi\" (e thjeshtë dhe e avancuar).",
+        m5_t7: "\"Frekuenca & Grupimi\".",
+        m5_p4: "Zbatim në raste konkrete. Krahasim i rezultateve midis \"i zakonshëm\" dhe \"i avancuar\".",
+        pause5: "🍔 Pushim dreke",
+        module6: "🎯 Moduli 6: Interpretimi & Vizualizimi",
+        m6_p1: "13h00–14h25 — Ekzekutimi i kërkesave & interpretimi analitik i rezultateve",
+        practice_guided: "Praktikë e udhëzuar: 🛤️",
+        m6_p2: "Analiza e rezultateve të marra paradite.",
+        m6_p3: "Metodologji interpretimi: verifikimi i hipotezave, kryqëzimi i burimeve, identifikimi i pozitivëve të rremë.",
+        m6_p4: "Praktika të mira: verifiko rolin, periudhën, burimin. 👍🏻",
+        pause6: "☕️ Pushim kafeje",
+        m6_p5: "14h35–15h30 — Paraqitje grafike & hartografike",
+        theory_m6: "Teori (Fleta 4.1): 🧠",
+        m6_t1: "Modalitetet e vizualizimit: Tabela (renditje, filtra, pamje), Grafikë (komunikime, rrethe), Harta (heat map, agregime, pika takimi).",
+        tip: "Këshillë:",
+        m6_tip: "Kombino pamjet për një analizë me shumë kënde.",
+        m6_p6: "Gjenerimi i grafikëve dhe hartave nga rezultatet e kërkesave. Ndërveprimi mes pamjeve.",
+        pause7: "☕️ Pushim kafeje",
+        module7: "🎯 Moduli 7: Përmbledhja e Rezultateve",
+        m7_p1: "Ruajtja e rezultateve të analizës: krijimi i listave dhe kërkesave të rëndësishme.",
+        m7_p2: "Organizimi në një dosje \"Rezultate\" me emërtim të qartë.",
+        day3: "🚨 DITA 3 – E enjte, 9 tetor: TË DHËNA TË NDERLIKUARA, FUNKSIONE TË AVANCUARA & MBYLLJE",
+        module8: "🎯 Moduli 8: Integrimi i të Dhënave të Specializuara",
+        m8_p1: "09h00–10h25 — Integrimi i të dhënave financiare 💵",
+        theory_m8a: "Teori (Fleta 2.4): 🧠",
+        m8_t1: "Veçoritë e të dhënave financiare (llogari, transaksione).",
+        m8_p2: "Import dhe hartëzim i një skedari me transaksione bankare. Kërkim dhe korrelacion me të dhëna të tjera (p.sh.: identitete, LAPI). 🕵🏼‍♂️",
+        pause8: "☕️ Pushim kafeje",
+        m8_p3: "10h35–12h00 — Integrimi i metadatave",
+        theory_m8b: "Teori (Fleta 2.5): 🧠",
+        m8_t2: "Veçoritë e të dhënave IP (adresa, loge). 🧠",
+        pause9: "🍔 Pushim dreke",
+        module9: "🎯 Moduli 9: Optimizim & Funksione Kritike",
+        theory_practice: "Teori dhe Praktikë (Fletët 4 & 5):",
+        m9_title: "Funksione operacionale kritike:",
+        m9_p1: "Ripërdorimi i historikut të kërkesave.",
+        m9_p2: "Listat e përzgjedhjes dhe përjashtimit.",
+        m9_p3: "Menaxhimi i dublikatave teknike (Praktika/Fleta 5.2).",
+        m9_p4: "Studime rastesh konkrete (p.sh.: Praktika 2 \"1 MSISDN ⇒ N IMEI\", Praktika 3 \"Dy SIM, një person?\", Praktika 5 \"Automjete interesi\").",
+        m9_p5: "Metodologji për përcaktimin e zonave të interesit gjeografik (Praktika 6).",
+        pause10: "☕️ Pushim kafeje",
+        module10: "🎯 Moduli 10: Raportim, Arkivim & Vlerësim",
+        m10_p1: "14h35–15h30 — Pyetje‑përgjigje",
+        m10_p2: "Sesion i dedikuar pyetjeve të pjesëmarrësve mbi gjithë trajnimet.",
+        m10_p3: "Rikthim mbi pikat bllokuese ose komplekse.",
+        m10_p4: "15h30–16h00 — Test final & përshtypje nga vlerësimi 🧩",
+        m10_p5: "Test final:",
+        m10_p6: "Vlerësim i arritjeve në formë e një pyetësori më zgjedhje ose mini‑rasti praktik.",
+        m10_p7: "Raportim (Fleta 5.1):",
+        m10_p8: "Paraqitje e shpejtë e eksporteve (Excel, KML, raporte PDF) dhe praktikave të mira të mbylljes (Fleta 5.3 — arkivim, verifikim, kontroll i lejeve).",
+        m10_p9: "Përshtypje nga vlerësimi:",
+        m10_p10: "Mbledhja e përshtypjeve për trajnimet."
+      }
+    ,
+      en: {
+              "page_title": "Training Program — Mercure_V5",
+              "title": "📘 Training Program — Mercure_V5",
+              "subtitle": "3‑day track — fundamentals, analysis, and reporting",
+              "plan1": "Discovery",
+              "plan1_desc": "of the tool and its organization.",
+              "plan2": "Acquisition",
+              "plan2_desc": "of data (Import).",
+              "plan3": "Exploitation & Analysis",
+              "plan3_desc": "(Queries, Visualization).",
+              "plan4": "Specialization",
+              "plan4_desc": "(Financial/IP data) and Optimization.",
+              "plan5": "Reporting",
+              "plan5_desc": "and Closing the process.",
+              "plan_note": "Each module alternates <strong>theory</strong> (content from the sheets) and <strong>practice</strong> (demos and guided exercises) to maximize learning.",
+              "day1": "🚀 DAY 1 – Tuesday, October 7: FUNDAMENTALS & GETTING STARTED",
+              "module1": "🎯 Module 1: Introduction & Environment Overview",
+              "m1_p1": "09:00–09:15 — Program overview",
+              "m1_p1_desc": "Training objectives, target audience, expected outcomes.",
+              "m1_p2": "09:15–09:30 — Initial test",
+              "m1_p2_desc": "Quick assessment of participants’ baseline knowledge.",
+              "m1_p3": "09:30–10:25 — Non‑contextual menu (reference) & contextual menu",
+              "theory_m1": "Theory (Sheet 1): 🧠",
+              "m1_t1": "Interface overview: main window, areas, status bar, notification center.",
+              "m1_t2": "Difference between the three menu types: non‑contextual (global), contextual (right‑click), pop‑up (analysis).",
+              "m1_t3": "Details of main non‑contextual menus (File, Identities, Telephony, ALPR, Finance, IP, Multi‑entities, Queries, Help).",
+              "m1_t4": "Importance of MCC/MNC nomenclature (Help) (e.g., 276 = Albania — 01 = ALBtelecom).",
+              "practice_demo": "Practice/Demo: 👀",
+              "practice_only": "Practice:",
+              "pause1": "☕️ Coffee break",
+              "module2": "🎯 Module 2: Data Organization & Procedures",
+              "theory_m2": "Theory (Sheet 1.4 & 1.5): 🧠",
+              "m2_t1": "Hierarchical structure of data: Database → Workspaces → Procedures → Folders → Subpoenas/Requests.",
+              "m2_t2": "Best practices: explicit naming, organization by case/data type, use of saved views.",
+              "m2_t3": "Preferences (File > Preferences): General, Display, Import/Export, Mapping, Network.",
+              "m2_p1": "Create a first workspace and a procedure.",
+              "m2_p2": "Set basic preferences (time zone, date formats).",
+              "m2_p3": "Exercise on clear and structured naming.",
+              "pause2": "🍔 Lunch break",
+              "module3": "🎯 Module 3: Data Typology & Import Principles",
+              "theory_m3": "Theory (Sheets 2 & 3): 🧠",
+              "m3_t1": "<strong>Identify (Sheet 2)</strong>: Overview of integrable data (Identities, Communications, Events, Records, Relays). Focus on the need to validate/cross‑check identities.",
+              "m3_t2": "<strong>Integrate (Sheet 3)</strong>: Overview of import modes (manual vs. automatic). Basic mapping concepts.",
+              "m3_p1": "Manual creation of an identity and a list of numbers.",
+              "m3_p2": "Overview of various source file formats.",
+              "pause3": "☕️ Coffee break",
+              "module4": "🎯 Module 4: Import Methodology",
+              "theory_m4": "Theory (Sheet 3.2): 🧠",
+              "m4_t1": "Detailed import process: recognized format vs. format to be mapped.",
+              "m4_t2": "Watch‑outs: Date formats, headers, ambiguous numbers, subscriber/correspondent role.",
+              "m4_t3": "Tip: Create mapping templates for recurring imports.",
+              "m4_p1": "Simple import of a call detail record file (recognized format).",
+              "m4_p2": "Demo of the mapping process on a fictitious unformatted file.",
+              "day2": "🛤️ DAY 2 – Wednesday, October 8: ANALYSIS & EXPLOITATION",
+              "module5": "🎯 Module 5: Fundamental Queries",
+              "m5_p1": "09:00–10:25 — Queries (part 1)",
+              "theory_m5a": "Theory (Sheet 4.3): 🧠",
+              "m5_t1": "Principle of queries in Mercure.",
+              "m5_t2": "Basic searches: by value, text, date range.",
+              "m5_t3": "“Common” correlation queries (simple linking of subpoenas/requests).",
+              "m5_p2": "Run simple searches and first correlations on the previous day’s imported data.",
+              "pause4": "☕️ Coffee break",
+              "m5_p3": "10:35–12:00 — Queries (part 2)",
+              "theory_m5b": "Theory (Sheets 4.3 & 4.4): 🧠",
+              "m5_t4": "“Advanced” correlation queries (taking roles into account).",
+              "m5_t5": "“Proximity” queries (radius).",
+              "m5_t6": "“Meeting/Separation Point” queries (simple and advanced).",
+              "m5_t7": "“Frequencies & Fleets” queries.",
+              "m5_p4": "Hands‑on with concrete cases. Compare results between “Common” and “Advanced” correlations.",
+              "pause5": "🍔 Lunch break",
+              "module6": "🎯 Module 6: Interpretation & Visualization",
+              "m6_p1": "13:00–14:25 — Running queries & analytical interpretation of results",
+              "practice_guided": "Guided Practice: 🛤️",
+              "m6_p2": "Analyze the morning’s results.",
+              "m6_p3": "Interpretation methodology: validate hypotheses, cross sources, identify false positives.",
+              "m6_p4": "Best practices: Check role, period, source. 👍🏻",
+              "pause6": "☕️ Coffee break",
+              "m6_p5": "14:35–15:30 — Graphical & cartographic representations",
+              "theory_m6": "Theory (Sheet 4.1): 🧠",
+              "m6_t1": "Visualization modes: Tables (sorting, filters, views), Graphs (communications, entourage), Maps (heat map, aggregations, meeting points).",
+              "tip": "Tip:",
+              "m6_tip": "Combine views for a multi‑angle analysis.",
+              "m6_p6": "Generate graphs and maps from query results. Interact between views.",
+              "pause7": "☕️ Coffee break",
+              "module7": "🎯 Module 7: Synthesis of Results",
+              "m7_p1": "Save analysis results: create relevant lists and requests.",
+              "m7_p2": "Organize in a “Results” folder with explicit naming.",
+              "day3": "🚨 DAY 3 – Thursday, October 9: COMPLEX DATA, ADVANCED FUNCTIONS & CLOSURE",
+              "module8": "🎯 Module 8: Integration of Specialized Data",
+              "m8_p1": "09:00–10:25 — Integration of financial data 💵",
+              "theory_m8a": "Theory (Sheet 2.4): 🧠",
+              "m8_t1": "Specifics of financial data (accounts, transactions).",
+              "m8_p2": "Import and mapping of a bank transactions file. Search and correlation with other data (e.g., identities, ALPR). 🕵🏼‍♂️",
+              "pause8": "☕️ Coffee break",
+              "m8_p3": "10:35–12:00 — Integration of metadata",
+              "theory_m8b": "Theory (Sheet 2.5): 🧠",
+              "m8_t2": "Specifics of IP data (addresses, logs). 🧠",
+              "pause9": "🍔 Lunch break",
+              "module9": "🎯 Module 9: Optimization & Critical Functions",
+              "theory_practice": "Theory and Practice (Sheets 4 & 5):",
+              "m9_title": "Critical operational functions:",
+              "m9_p1": "Re‑use of query history.",
+              "m9_p2": "Management of selection and exclusion lists.",
+              "m9_p3": "Management of technical duplicates (Practice/Sheet 5.2).",
+              "m9_p4": "Case studies from Practice Sheets (e.g., Practice 2 “1 MSISDN ⇒ N IMEI”, Practice 3 “Two SIMs, one person?”, Practice 5 “Vehicles of interest”).",
+              "m9_p5": "Methodology for defining geographic areas of interest (Practice 6).",
+              "pause10": "☕️ Coffee break",
+              "module10": "🎯 Module 10: Reporting, Archiving & Evaluation",
+              "m10_p1": "14:35–15:30 — Q&A",
+              "m10_p2": "Session dedicated to participants’ questions about the entire training.",
+              "m10_p3": "Review of blocking or complex points.",
+              "m10_p4": "15:30–16:00 — Final test & feedback 🧩",
+              "m10_p5": "Final test:",
+              "m10_p6": "Assessment of acquired knowledge via MCQ or a mini case study.",
+              "m10_p7": "Reporting (Sheet 5.1):",
+              "m10_p8": "Quick overview of export functions (Excel, KML, PDF reports) and good closing practices (Sheet 5.3 — Archiving, verification, permission checks).",
+              "m10_p9": "Evaluation feedback:",
+              "m10_p10": "Collect participants’ impressions of the training."
+      }
+    };
+
+    function applyLanguage(lang) {
+      const dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', String(isActive));
+      });
+      try { localStorage.setItem('mercure_program_lang', lang); } catch (_) {}
+      // Update document title for better UX
+      const titleNode = document.querySelector('title');
+      if (titleNode && dict.page_title) titleNode.textContent = dict.page_title;
+    }
+
+    // Init after DOM is ready (safety for embedding)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyLanguage(btn.dataset.lang);
+        });
+      });
+
+      const savedLang = (function(){
+        try { return localStorage.getItem('mercure_program_lang') || 'fr'; } catch(_) { return 'fr'; }
+      })();
+      applyLanguage(savedLang);
+    });
+  </script>
+</body>
+</html>
