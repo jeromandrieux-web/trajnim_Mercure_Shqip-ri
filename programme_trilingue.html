@@ -61,6 +61,8 @@
 
     .logo{ font-size: 36px; }
 
+    .logo img { height: 36px; display: block; }
+
     .lang-switch{ display: flex; gap: 10px; }
 
     .lang-btn{
@@ -228,7 +230,7 @@
   <div class="container">
     <div class="header">
       <div class="header-top">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo" aria-hidden="true"><img src="logo.png" alt="Logo Mercure" /></div>
         <div class="lang-switch" role="group" aria-label="Sélection de la langue">
           <button type="button" class="lang-btn active" data-lang="fr" aria-pressed="true">🇫🇷 FR</button>
           <button type="button" class="lang-btn" data-lang="sq" aria-pressed="false">🇦🇱 SQ</button>
@@ -478,6 +480,9 @@
         m1_t4: "Importance de la nomenclature MCC/MNC (Aide) (ex : 276 = Albanie - 01 = ALBtelecom).",
         practice_demo: "Pratique/Démonstration : 👀",
         practice_only: "Pratique :",
+        m1_p4: "Navigation dans l'interface.",
+        m1_p5: "Utilisation de la recherche instantanée dans la barre d'état.",
+        m1_p6: "Exploration des menus principaux et observation des options disponibles en fonction des droits.",
         pause1: "☕️ Pause-café",
         module2: "🎯 Module 2 : Organisation des Données & Procédures",
         theory_m2: "Théorie (Fiche 1.4 & 1.5) : 🧠",
@@ -597,6 +602,9 @@
         m1_t4: "Rëndësia e nomenklaturës MCC/MNC (Ndihmë) (p.sh.: 276 = Shqipëri — 01 = ALBtelecom).",
         practice_demo: "Praktikë/Demonstrim: 👀",
         practice_only: "Praktikë:",
+        m1_p4: "Lundrimi në ndërfaqe.",
+        m1_p5: "Përdorimi i kërkimit të menjëhershëm në shiritin e statusit.",
+        m1_p6: "Eksplorimi i menyve kryesore dhe vëzhgimi i opsioneve të disponueshme në varësi të të drejtave.",
         pause1: "☕️ Pushim kafeje",
         module2: "🎯 Moduli 2: Organizimi i të Dhënave & Procedurave",
         theory_m2: "Teori (Fleta 1.4 & 1.5): 🧠",
@@ -717,6 +725,9 @@
               "m1_t4": "Importance of MCC/MNC nomenclature (Help) (e.g., 276 = Albania — 01 = ALBtelecom).",
               "practice_demo": "Practice/Demo: 👀",
               "practice_only": "Practice:",
+              "m1_p4": "Navigating the interface.",
+              "m1_p5": "Using instant search in the status bar.",
+              "m1_p6": "Exploring main menus and observing available options based on permissions.",
               "pause1": "☕️ Coffee break",
               "module2": "🎯 Module 2: Data Organization & Procedures",
               "theory_m2": "Theory (Sheet 1.4 & 1.5): 🧠",
@@ -836,10 +847,9 @@
         });
       });
 
-      const savedLang = (function(){
-        try { return localStorage.getItem('mercure_program_lang') || 'fr'; } catch(_) { return 'fr'; }
-      })();
-      applyLanguage(savedLang);
+      const FORCE_DEFAULT_LANG = 'sq';
+      try { localStorage.setItem('mercure_program_lang', FORCE_DEFAULT_LANG); } catch(_) {}
+      applyLanguage(FORCE_DEFAULT_LANG);
     });
   </script>
 </body>
